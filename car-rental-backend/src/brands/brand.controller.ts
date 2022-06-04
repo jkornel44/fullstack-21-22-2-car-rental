@@ -1,5 +1,6 @@
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, ParseIntPipe } from '@nestjs/common';
+import { AllowAnonymous } from '../auth/allow-anonymous';
 import { BrandsService } from './brand.service';
 import { BrandDto } from './dto/brand.dto';
 
@@ -9,12 +10,14 @@ export class BrandsController {
   constructor(
     private _brandsService: BrandsService) {}
 
+  @AllowAnonymous()
   @Get()
   async findAll(@Query() brandDto: BrandDto): Promise<BrandDto[]> {
     const brands = await this._brandsService.findAll(brandDto);
     return brands.map((brand) => new BrandDto(brand));
   }
 
+  @AllowAnonymous()
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<BrandDto> {
     const model = await this._brandsService.findOne(id);

@@ -13,17 +13,22 @@ import { CarDto } from './dto/car.dto';
 import { Car } from './entities/car';
 import { CarsService } from './cars.service';
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
+import { AllowAnonymous } from 'src/auth/allow-anonymous';
+import { UserParam } from '../auth/user-param.decorator';
+import { UserDto } from '../users/dto/user.dto';
 
 @Controller('cars')
 export class CarsController {
   constructor(private _carsService: CarsService) {}
 
+  @AllowAnonymous()
   @Get()
   async findAll(@Query() carDto: CarDto): Promise<CarDto[]> {
     const cars = await this._carsService.findAll(carDto);
     return cars.map((car) => new CarDto(car));
   }
 
+  @AllowAnonymous()
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<CarDto> {
     const car = await this._carsService.findOne(id);

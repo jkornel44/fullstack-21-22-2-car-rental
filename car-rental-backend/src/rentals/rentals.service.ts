@@ -1,7 +1,7 @@
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { EntityRepository, FilterQuery, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { User } from '../users/entities/user';
+import { User, UserRole } from '../users/entities/user';
 import { Location } from '../locations/entities/location';
 import { RentalDto } from './dto/rental.dto';
 import { Rental } from './entities/rental';
@@ -19,12 +19,24 @@ export class RentalsService {
     private userRepository: EntityRepository<User>,
   ) {}
 
-  async findAll(): Promise<Rental[]> {
+  async findAll(user: UserDto): Promise<Rental[]> {
+    const filters: FilterQuery<Rental> = { user };
+    
+    if (user.role === UserRole.User) {
+      filters.user = { id: user.id };
+    }
+
     return await this.rentalRepository.findAll();
   }
 
-  async findOne(id: number): Promise<Rental> {
-    return await this.rentalRepository.findOne({ id });
+  async findOne(id: number, user: UserDto): Promise<Rental> {
+    const filters: FilterQuery<Rental> = { id };
+   
+    if (user.role === UserRole.User) {
+      filters.user = { id: user.id };
+    }
+
+    return await this.rentalRepository.findOne(filters);
   }
 
   async create(rentalDto: RentalDto, userDto: UserDto, locationDto: LocationDto): Promise<Rental> {

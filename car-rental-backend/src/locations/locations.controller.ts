@@ -2,6 +2,7 @@ import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { LocationsService } from './locations.service';
 import { LocationDto } from './dto/location.dto';
+import { AllowAnonymous } from '../auth/allow-anonymous';
 
 
 @Controller('locations')
@@ -9,6 +10,7 @@ export class LocationsController {
   constructor(
     private _locationsService: LocationsService) {}
 
+  @AllowAnonymous()
   @Get()
   async findAll(): Promise<LocationDto[]> {
     const locations = await this._locationsService.findAll();
