@@ -1,0 +1,1 @@
+export const secret = 'teszt'; //process.env.jwtSecret;

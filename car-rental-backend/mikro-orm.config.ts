@@ -9,7 +9,7 @@ import { User } from './src/users/entities/user';
 
 export default {
   entities: [Car, Category, Model, Brand, Location, Rental, User],
-  dbName: 'car-rental.sqlite3',
+  dbName: (process.env.seed ? './dist/' : '') + process.env.dbName,
   type: 'sqlite',
   migrations: {
     path: 'migrations',
