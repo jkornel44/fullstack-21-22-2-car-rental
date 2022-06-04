@@ -30,6 +30,7 @@ export class UsersController {
         }
     }
 
+    @AllowAnonymous()
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@UserParam() user: UserDto) {

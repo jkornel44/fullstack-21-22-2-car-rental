@@ -3,6 +3,8 @@ import { RentalDto } from './dto/rental.dto';
 import { Rental } from './entities/rental';
 import { RentalsService } from './rentals.service';
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
+import { LocationDto } from '../Locations/dto/location.dto';
+import { UserDto } from '../users/dto/user.dto';
 
 @Controller('rentals')
 export class RentalsController {
@@ -26,9 +28,13 @@ export class RentalsController {
   }
 
   @Post()
-  async create(@Body() rentalDto: RentalDto): Promise<RentalDto> {
+  async create(
+    @Body() rentalDto: RentalDto,
+    @Param() locationDto: LocationDto,
+    @Param() userDto: UserDto
+  ): Promise<RentalDto> {
     try {
-      const newRental = await this._rentalsService.create(rentalDto);
+      const newRental = await this._rentalsService.create(rentalDto, userDto, locationDto);
       return new RentalDto(newRental);
     } catch (e) {
       if (e instanceof UniqueConstraintViolationException) {

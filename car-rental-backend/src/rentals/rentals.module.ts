@@ -4,9 +4,10 @@ import { RentalsController } from './rentals.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Rental } from './entities/rental';
 import { Location } from '../locations/entities/location';
+import { User } from '../users/entities/user';
 
 @Module({
-  imports: [MikroOrmModule.forFeature({ entities: [Rental, Location] })],
+  imports: [MikroOrmModule.forFeature({ entities: [Rental, Location, User] })],
   providers: [RentalsService],
   controllers: [RentalsController],
 })

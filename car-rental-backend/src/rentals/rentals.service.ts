@@ -1,9 +1,12 @@
 import { EntityRepository, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
+import { User } from '../users/entities/user';
 import { Location } from '../locations/entities/location';
 import { RentalDto } from './dto/rental.dto';
 import { Rental } from './entities/rental';
+import { UserDto } from '../users/dto/user.dto';
+import { LocationDto } from '../Locations/dto/location.dto';
 
 @Injectable()
 export class RentalsService {
@@ -12,6 +15,8 @@ export class RentalsService {
     private rentalRepository: EntityRepository<Rental>,
     @InjectRepository(Rental)
     private locationRepository: EntityRepository<Location>,
+    @InjectRepository(User)
+    private userRepository: EntityRepository<User>,
   ) {}
 
   async findAll(): Promise<Rental[]> {
@@ -22,18 +27,16 @@ export class RentalsService {
     return await this.rentalRepository.findOne({ id });
   }
 
-  async create(rentalDto: RentalDto): Promise<Rental> {
+  async create(rentalDto: RentalDto, userDto: UserDto, locationDto: LocationDto): Promise<Rental> {
     const rental = new Rental();
     rental.pick_up_date = rentalDto.pick_up_date;
     rental.return_date = rentalDto.return_date;
     rental.total_cost = 30000; //todo
-    if (rentalDto.pick_up_location) {
-      rental.pick_up_location = this.locationRepository.getReference(rentalDto.pick_up_location.id);
-    }
-
-    if (rentalDto.return_location) {
-      rental.return_location = this.locationRepository.getReference(rentalDto.return_location.id);
-    }
+    
+    rental.pick_up_location = this.locationRepository.getReference(locationDto.id);
+    rental.return_location = this.locationRepository.getReference(locationDto.id);
+    rental.user = this.userRepository.getReference(userDto.id);
+  
 
     await this.rentalRepository.persistAndFlush(rental);
     await wrap(rental.pick_up_location).init();

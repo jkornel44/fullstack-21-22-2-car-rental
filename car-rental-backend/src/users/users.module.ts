@@ -11,6 +11,6 @@ import { JwtService } from '@nestjs/jwt';
 @Module({
     imports: [MikroOrmModule.forFeature({ entities: [User, Rental] }), AuthModule],
     controllers: [UsersController],
-    providers: [UsersService, AuthService, JwtService],
+    providers: [UsersService],
 })
 export class UsersModule {}

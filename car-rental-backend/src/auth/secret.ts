@@ -1,1 +1,1 @@
-export const secret = 'teszt'; //process.env.jwtSecret;
+export const secret = process.env.jwtSecret || 'secret';
