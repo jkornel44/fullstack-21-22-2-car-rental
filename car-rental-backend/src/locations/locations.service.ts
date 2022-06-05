@@ -10,8 +10,6 @@ export class LocationsService {
   constructor(
     @InjectRepository(Location)
     private locationRepository: EntityRepository<Location>,
-    @InjectRepository(Rental)
-    private rentalRepository: EntityRepository<Rental>
   ) {}
 
   async findAll(): Promise<Location[]> {

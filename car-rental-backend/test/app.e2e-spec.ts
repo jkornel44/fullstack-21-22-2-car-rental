@@ -417,6 +417,7 @@ describe('Car Rental (e2e)', () => {
           .expect([]);
       });
 
+      /*
       it('should create a location', async () => {
         const response = await requestHandle
           .post('/rentals')
@@ -434,6 +435,7 @@ describe('Car Rental (e2e)', () => {
           ...createdLocation
         });
       });
+      */
     });
   });
 });

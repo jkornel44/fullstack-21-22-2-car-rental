@@ -27,11 +27,11 @@ describe('RentalsController', () => {
 
   it('should give empty array when no issues have been created', () => {
     rentalsService.findAll.mockReturnValue([]);
-    expect(controller.findAll({})).resolves.toEqual([]);
+    expect(controller.findAll({}, {})).resolves.toEqual([]);
   });
 
   it('should throw an error when the requested issue is missing', () => {
     rentalsService.findOne.mockReturnValue(undefined);
-    expect(controller.findOne(1)).rejects.toThrow();
+    expect(controller.findOne(1, {})).rejects.toThrow();
   });
 });
