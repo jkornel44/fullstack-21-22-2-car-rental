@@ -5,7 +5,7 @@ import { BrandsModule } from './brands/brand.module';
 import { CarsModule } from './cars/cars.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ModelsModule } from './models/model.module';
-import { LocationsModule } from './Locations/locations.module';
+import { LocationsModule } from './locations/locations.module';
 import { RentalsModule } from './rentals/rentals.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
