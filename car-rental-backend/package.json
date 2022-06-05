@@ -24,7 +24,7 @@
     "test:cov": "env-cmd -e test jest --coverage",
     "test:debug": "env-cmd -e test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e:migrate": "env-cmd -e test mikro-orm schema:drop -r --drop-migrations-table && npm run migrate:test && env-cmd -e test mikro-orm database:import test/seed.sql",
-    "test:e2e": "npm run test:e2e:migrate && env-cmd -e test jest --detectOpenHandles --config ./test/jest-e2e.json"
+    "test:e2e": "npm run test:e2e:migrate && env-cmd -e test jest --detectOpenHandles --forceExit --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@mikro-orm/core": "^4.5.9",
