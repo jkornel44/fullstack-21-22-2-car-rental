@@ -2,7 +2,6 @@ import { User } from "../../users/entities/user";
 import { Location } from "../../locations/entities/location";
 import { Rental } from "../entities/rental";
 import { UserDto } from "../../users/dto/user.dto";
-import { LocationDto } from "../../Locations/dto/location.dto";
 import { Car } from "../../cars/entities/car";
 
 export class RentalDto {
