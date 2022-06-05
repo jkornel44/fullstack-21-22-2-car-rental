@@ -1,7 +1,6 @@
 import { EntityRepository, FilterQuery, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { LocationDto } from '../Locations/dto/location.dto';
 import { UserDto } from '../users/dto/user.dto';
 import { Location } from '../locations/entities/location';
 import { RentalDto } from './dto/rental.dto';
