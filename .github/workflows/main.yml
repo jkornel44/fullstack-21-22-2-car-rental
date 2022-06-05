@@ -1,0 +1,34 @@
+name: Main workflow
+
+on:
+  push:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: car-rental-backend
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache-dependency-path: car-rental-backend/package-lock.json
+      - name: Install dependencies
+        run: npm i
+      - name: Run tests
+        run: npm test
+      - name: Run e2e tests
+        run: npm run test:e2e
+      - name: Build and deploy on Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          appdir: car-rental-backend
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: fullstack-beadando
+          heroku_email: i21rh2@inf.elte.hu
