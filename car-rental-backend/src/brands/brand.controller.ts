@@ -29,6 +29,7 @@ export class BrandsController {
     return new BrandDto(model);
   }
 
+  @AllowAnonymous()
   @Post()
   async create(@Body() brandDto: BrandDto): Promise<BrandDto> {
     try {

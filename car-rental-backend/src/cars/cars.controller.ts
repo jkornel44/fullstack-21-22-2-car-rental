@@ -13,9 +13,10 @@ import { CarDto } from './dto/car.dto';
 import { Car } from './entities/car';
 import { CarsService } from './cars.service';
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
-import { AllowAnonymous } from 'src/auth/allow-anonymous';
+import { AllowAnonymous } from '../auth/allow-anonymous';
 import { UserParam } from '../auth/user-param.decorator';
 import { UserDto } from '../users/dto/user.dto';
+import { ModelDto } from 'src/models/dto/model.dto';
 
 @Controller('cars')
 export class CarsController {
@@ -40,6 +41,7 @@ export class CarsController {
     return new CarDto(car);
   }
 
+  @AllowAnonymous()
   @Post()
   async create(@Body() carDto: CarDto): Promise<CarDto> {
     try {

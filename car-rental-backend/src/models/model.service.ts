@@ -21,8 +21,7 @@ export class ModelsService {
     return await this.modelRepository.find(
       {
         name : { $like: `%${ modelDto.name || ''}%` }, // todo
-      },
-      { populate: ['cars'] },
+      }
     );
   }
 
@@ -33,20 +32,10 @@ export class ModelsService {
   async create(modelDto: ModelDto): Promise<Model> {
     const model = new Model();
     model.name = modelDto.name;
-    if (modelDto.brand) {
-      model.brand = this. brandRepository.getReference(modelDto.brand.id);
-    }
-
-    if (modelDto.cars) {
-      model.cars.set(
-        modelDto.cars?.map((car) =>
-          this.carRepository.getReference(car.id)
-        )
-      );
-    }
+    model.brand = this.brandRepository.getReference(modelDto.brand.id);
 
     await this.modelRepository.persistAndFlush(model);
-    await model.cars.init();
+    //await model.cars.init();
     //await wrap(model.brand).init();
 
     return model;

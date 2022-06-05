@@ -1,5 +1,5 @@
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, All } from '@nestjs/common';
 import { LocationsService } from './locations.service';
 import { LocationDto } from './dto/location.dto';
 import { AllowAnonymous } from '../auth/allow-anonymous';
@@ -17,6 +17,7 @@ export class LocationsController {
     return locations.map((location) => new LocationDto(location));
   }
 
+  @AllowAnonymous()
   @Post()
   async create(@Body() locationDto: LocationDto): Promise<LocationDto> {
     try {

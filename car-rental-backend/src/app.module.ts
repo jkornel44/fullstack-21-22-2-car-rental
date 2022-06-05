@@ -1,6 +1,6 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
-import mikroOrmConfig from 'mikro-orm.config';
+import mikroOrmConfig from '../mikro-orm.config';
 import { BrandsModule } from './brands/brand.module';
 import { CarsModule } from './cars/cars.module';
 import { CategoriesModule } from './categories/categories.module';

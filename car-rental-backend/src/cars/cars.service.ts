@@ -28,7 +28,7 @@ export class CarsService {
   }
 
   async findOne(id: number): Promise<Car> {
-    return await this.carRepository.findOne({ id });
+    return await this.carRepository.findOne({ id }, {populate: ['categories']});
   }
 
 

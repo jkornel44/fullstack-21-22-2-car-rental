@@ -17,6 +17,7 @@ export class CategoriesController {
     return categories.map((category) => new CategoryDto(category));
   }
 
+  @AllowAnonymous()
   @Post()
   async create(@Body() categoryDto: CategoryDto): Promise<CategoryDto> {
     try {

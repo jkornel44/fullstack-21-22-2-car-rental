@@ -1,4 +1,4 @@
-import { CategoryDto } from "src/categories/dto/category.dto";
+import { CategoryDto } from "../../categories/dto/category.dto";
 import { ModelDto } from "../../models/dto/model.dto";
 import { Model } from "../../models/entities/model";
 import { Brand } from "../entities/brand";

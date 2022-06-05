@@ -29,6 +29,7 @@ export class ModelsController {
     return new ModelDto(model);
   }
 
+  @AllowAnonymous()
   @Post()
   async create(@Body() modelDto: ModelDto): Promise<ModelDto> {
     try {

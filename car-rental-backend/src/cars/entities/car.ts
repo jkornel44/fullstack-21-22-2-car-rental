@@ -1,6 +1,7 @@
-import { Collection, Entity, ManyToMany, ManyToOne, OneToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import { Collection, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { Model } from '../../models/entities/model';
 import { Category } from '../../categories/entities/category';
+import { Rental } from '../../rentals/entities/rental';
 
 @Entity()
 export class Car {
@@ -24,5 +25,8 @@ export class Car {
 
   @ManyToOne(() => Model)
   model!: Model;
+
+  @OneToMany(() => Rental, (rental) => rental.car)
+  rentals = new Collection<Car>(this);
 
 }

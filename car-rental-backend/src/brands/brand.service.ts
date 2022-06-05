@@ -26,7 +26,9 @@ export class BrandsService {
   }
 
   async findOne(id: number): Promise<Brand> {
-    return await this.brandRepository.findOne({ id });
+    return await this.brandRepository.findOne({ id }, {
+      populate: ['models']
+    });
   }
 
   async create(brandDto: BrandDto): Promise<Brand> {
