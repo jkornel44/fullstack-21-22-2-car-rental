@@ -1,0 +1,2 @@
+insert into user (name, user_name, password, role) values ('CarRental Admin', 'admin', '472e62b2769e50adce6c5111e68b9d2473ff9d56c37ba85a756bd7f88039df29d63509d9c97ecd80a4ad7af964dac142511ef83b2094314768504a9088df4941', 'ADMIN');
+insert into user (name, user_name, password, role) values ('Teszt Elek', 'elek', '472e62b2769e50adce6c5111e68b9d2473ff9d56c37ba85a756bd7f88039df29d63509d9c97ecd80a4ad7af964dac142511ef83b2094314768504a9088df4941', 'USER');
