@@ -10,7 +10,7 @@ export class Model {
   @Property({ unique: true })
   name!: string;
 
-  @OneToMany(() => Car, 'model')
+  @OneToMany(() => Car, "model")
   cars = new Collection<Car>(this);
 
   @ManyToOne(() => Brand, 'models')

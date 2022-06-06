@@ -21,7 +21,7 @@ export class CarsService {
   async findAll(carDto?: CarDto): Promise<Car[]> {
     return await this.carRepository.find(
       {
-        id : { $like: `%${ carDto.id || ''}%` }, // todo
+        model : { $like: `%${ carDto.model|| ''}%` }, // todo
       },
       { populate: ['categories', 'model'] },
     );

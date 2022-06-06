@@ -36,7 +36,7 @@ export class ModelsService {
 
     await this.modelRepository.persistAndFlush(model);
     //await model.cars.init();
-    //await wrap(model.brand).init();
+    await wrap(model.brand).init();
 
     return model;
   }
