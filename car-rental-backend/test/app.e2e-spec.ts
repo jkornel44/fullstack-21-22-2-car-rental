@@ -199,8 +199,7 @@ describe('Car Rental (e2e)', () => {
         id: 1,
         name: "XC90",
         brand: {
-          id: 1,
-          name: 'Volvo'
+          id: 1
         }
       }
     });
