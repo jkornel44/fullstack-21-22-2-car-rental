@@ -224,7 +224,10 @@ describe('Car Rental (e2e)', () => {
           .set('Authorization', token)
           .send({
             name: "XC90",
-            brand: { id: 1}
+            brand: { 
+              id: 1,
+              name: 'Volvo'
+            }
         })
         .expect(201);
   
