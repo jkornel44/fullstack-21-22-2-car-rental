@@ -28,7 +28,9 @@ export class ModelsService {
   }
 
   async findOne(id: number): Promise<Model> {
-    return await this.modelRepository.findOne({ id });
+    return await this.modelRepository.findOne({ id }, {
+      populate: ['brand']
+    });
   }
 
   async create(modelDto: ModelDto): Promise<Model> {
