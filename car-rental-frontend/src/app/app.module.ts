@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { CarListComponent } from './car-list/car-list.component';
 import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CarEditorComponent } from './car-editor/car-editor.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarListComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

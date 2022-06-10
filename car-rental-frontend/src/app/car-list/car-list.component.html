@@ -1,1 +1,34 @@
-<p>car-list works!</p>
+<div class="flex w-full justify-center">
+  <section class=" w-3/4 pt-32 pb-12 text-white">
+    <p class="text-4xl font-extrabold uppercase">Kényelmes.</p>
+    <p class="text-2xl font-semibold">Városi cirkálásra alkalmas modellek és prémium autók luxus élménnyel.</p>
+    <p class="text-2xl font-semibold">Legtöbb autónk automata váltóval és sok más extrával.</p>
+  </section>
+</div>
+<div class="flex w-full justify-center">
+  <section class="w-3/4 bg-zinc-100 rounded-md shadow-sm mt-5 overflow-hidden">
+    <div class="w-full bg-zinc-300 p-4">
+      <div class="bg-white flex items-center w-max px-2 py-1 rounded-md cursor-pointer" (click)="onCreateCar()">
+        <fa-icon [icon]="faCirclePlus" class="p-2"></fa-icon>
+        Új jármű felvétele
+      </div>
+    </div>
+      <div *ngFor="let car of cars; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-40 cursor-pointer relative group">
+        <div class='w-64 group-hover:scale-110 duration-200 ease-in-out'>
+          <img class="object-cover p-2" width="100%" [src]="car.image" alt="city">
+        </div>
+        <div class="p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
+          <div class='flex space-x-1'>
+            <p class="font-extrabold text-3xl text-zinc-800"> {{ car.brand }} </p>
+            <p class="font-light text-lg text-zinc-700"> {{ car.model }}</p>
+          </div>
+          <div class="flex space-x-2">
+            <span *ngFor="let category of car.categories; let i = index" [style.backgroundColor]="category.color" class="w-max py-0.5 px-1 text-xs text-white rounded-sm">
+              {{ category.name }}
+            </span>
+          </div>
+          <p class=" font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
+        </div>
+      </div>
+  </section>
+</div>

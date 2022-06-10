@@ -1,11 +1,11 @@
 <div class=" w-full h-screen">
-  <div class="bg-zinc-800 absolute w-full -z-10 ">
+  <div class="fixed w-full -z-20 h-screen" style="background-color: '#081c15';">
     <img class="object-cover" width="100%" src="./assets/imgs/background.jpeg" alt="city">
   </div>
-  <header class="fixed bg-zinc-900 w-full flex space-x-3 p-3">
+  <header class="fixed bg-zinc-900 w-full flex space-x-12 p-3 z-50">
     <div class="flex items-center no-underline font-bold text-3xl text-white">
       <fa-icon [icon]="faCar" class="p-2"></fa-icon>
-      CarRental
+      <p class="hidden md:block">CarRental</p>
     </div>
     <div class="bg-white w-full rounded-md flex items-center">
       <fa-icon [icon]="faMagnifyingGlass" class="p-2 mr-1"></fa-icon>
@@ -21,8 +21,10 @@
     <div class="flex items-center no-underline font-bold text-xl text-white">
       <button class="bg-neutral-900 p-3 rounded-md hover:bg-neutral-700">Bejelentkezés</button>
     </div>
-
   </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 </div>
 
 
