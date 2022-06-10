@@ -199,7 +199,8 @@ describe('Car Rental (e2e)', () => {
         id: 1,
         name: "XC90",
         brand: {
-          id: 1
+          id: 1,
+          name: 'Volvo'
         }
       }
     });
@@ -217,7 +218,7 @@ describe('Car Rental (e2e)', () => {
           .expect(200)
           .expect([]);
       });
-
+      
       it('should create a model', async () => {
         const response = await requestHandle
           .post('/models')
