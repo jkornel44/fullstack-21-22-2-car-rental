@@ -21,6 +21,8 @@ export class ModelsService {
     return await this.modelRepository.find(
       {
         name : { $like: `%${ modelDto.name || ''}%` }, // todo
+      },{
+        populate: ['brand']
       }
     );
   }
