@@ -4,6 +4,7 @@ import { Car } from "../entities/car";
 
 export class CarDto {
   id?: number;
+  name?: string;
   registration_plate?: string;
   color?: string;
   price?: number;
@@ -14,6 +15,7 @@ export class CarDto {
 
   constructor(car: Car) {
     this.id = car.id;
+    this.name = car.name;
     this.registration_plate = car.registration_plate;
     this.color = car.color;
     this.price = car.price;

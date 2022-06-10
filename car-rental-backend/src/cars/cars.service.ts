@@ -6,6 +6,8 @@ import { UserDto } from '../users/dto/user.dto';
 import { Model } from '../models/entities/model';
 import { CarDto } from './dto/car.dto';
 import { Car } from './entities/car';
+import { Brand } from '../brands/entities/brand';
+import { ModelDto } from '../models/dto/model.dto';
 
 @Injectable()
 export class CarsService {
@@ -35,6 +37,8 @@ export class CarsService {
   async create(carDto: CarDto): Promise<Car> {
     const car = new Car();
     car.registration_plate = carDto.registration_plate;
+
+    car.name = carDto.name;
     car.color = carDto.color;
     car.price = carDto.price;
     car.purchase_date = carDto.purchase_date;

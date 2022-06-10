@@ -8,6 +8,9 @@ export class Car {
   @PrimaryKey()
   id!: number;
 
+  @Property()
+  name!: string;
+
   @Property({ unique: true })
   registration_plate!: string;
 
