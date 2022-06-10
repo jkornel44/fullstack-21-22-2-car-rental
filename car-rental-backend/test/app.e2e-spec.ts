@@ -48,6 +48,7 @@ describe('Car Rental (e2e)', () => {
     beforeAll(() => {
       createdCar = {
         id: 1,
+        name: 'Volvo XC90',
         registration_plate: "ABC-001",
         color: "yellow",
         price: 25000,
@@ -78,6 +79,7 @@ describe('Car Rental (e2e)', () => {
           .post('/cars')
           .set('Authorization', token)
           .send({
+            name: "Volvo XC90",
             registration_plate: "ABC-001",
             color: "yellow",
             price: 25000,
