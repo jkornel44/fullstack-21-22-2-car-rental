@@ -15,7 +15,9 @@ export class CarDto {
 
   constructor(car: Car) {
     this.id = car.id;
-    this.name = car.name;
+    if (car.model && car.model.brand) {
+      this.name = car.model.brand.name + ' ' + car.model.name;
+    }
     this.registration_plate = car.registration_plate;
     this.color = car.color;
     this.price = car.price;

@@ -8,7 +8,7 @@ export class Car {
   @PrimaryKey()
   id!: number;
 
-  @Property()
+  @Property({ nullable: true })
   name!: string;
 
   @Property({ unique: true })

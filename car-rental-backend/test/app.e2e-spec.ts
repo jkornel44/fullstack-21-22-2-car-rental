@@ -39,99 +39,21 @@ describe('Car Rental (e2e)', () => {
     });
   });
 
-  // --- 
-  
-  describe('Car Controller', () => {
-    let token: string;
-    let createdCar: Record<string, unknown>;
-
-    beforeAll(() => {
-      createdCar = {
-        id: 1,
-        name: 'Volvo XC90',
-        registration_plate: "ABC-001",
-        color: "yellow",
-        price: 25000,
-        purchase_date: "2022-01-02T00:00:00.000Z",
-        model: {
-            id: 2
-        },
-        categories: []
-      }
-    });
-
-    beforeEach(async () => {
-      const loginResponse = await requestHandle.post('/users/login').send(user);
-      token = `Bearer ${loginResponse.body.access_token}`;
-    });
-
-    describe('/cars', () => {
-      it('should return empty array', async () => {
-        await requestHandle
-          .get('/cars')
-          .set('Authorization', token)
-          .expect(200)
-          .expect([]);
-      });
-
-      it('should create a car', async () => {
-        const response = await requestHandle
-          .post('/cars')
-          .set('Authorization', token)
-          .send({
-            name: "Volvo XC90",
-            registration_plate: "ABC-001",
-            color: "yellow",
-            price: 25000,
-            purchase_date: "2022-01-02T00:00:00.000Z",
-            categories: [{id: 1}],
-            model: { id: 2}
-          })
-        .expect(201);
-
-        expect(response.body).toEqual({
-          ...createdCar
-        });
-      });
-
-      it('should return the newly created car in an array for the user', async () => {
-        await requestHandle
-          .get('/cars')
-          .set('Authorization', token)
-          .expect(200)
-          .expect([createdCar]);
-      });
-    });
-
-    describe('/cars/:id', () => {
-      it('should return the requested car', async () => {
-        await requestHandle
-          .get('/cars/1')
-          .set('Authorization', token)
-          .expect(200)
-          .expect((res) => {
-            expect(res.body).toEqual({ ...createdCar });
-          });
-      });
-
-      it('should return 404 when the car does not exist', async () => {
-        await requestHandle
-          .get('/cars/2')
-          .set('Authorization', token)
-          .expect(404);
-      });
-    });
-  });
-
   describe('Brand Controller', () => {
     let token: string;
     let createdBrand: Record<string, unknown>;
-    
+    let createdBrand2: Record<string, unknown>;
+
     beforeAll(() => {
       createdBrand = {
         id: 1,
-        name: "Volvo",
+        name: "VOLVO",
         models: []
+      }
+
+      createdBrand2 = {
+        id: 1,
+        name: "VOLVO",
       }
     });
 
@@ -154,7 +76,7 @@ describe('Car Rental (e2e)', () => {
           .post('/brands')
           .set('Authorization', token)
           .send({
-            name: "Volvo"
+            name: "VOLVO"
           })
         .expect(201);
   
@@ -168,7 +90,7 @@ describe('Car Rental (e2e)', () => {
           .get('/brands')
           .set('Authorization', token)
           .expect(200)
-          .expect([createdBrand]);
+          .expect([createdBrand2]);
       });
     });
 
@@ -199,10 +121,10 @@ describe('Car Rental (e2e)', () => {
     beforeAll(() => {
       createdModel = {
         id: 1,
-        name: "XC90",
+        name: 'V90',
         brand: {
           id: 1,
-          name: 'Volvo'
+          name: 'VOLVO'
         }
       }
     });
@@ -226,7 +148,7 @@ describe('Car Rental (e2e)', () => {
           .post('/models')
           .set('Authorization', token)
           .send({
-            name: "XC90",
+            name: "V90",
             brand: { 
               id: 1
             }
@@ -274,8 +196,8 @@ describe('Car Rental (e2e)', () => {
     beforeAll(() => {
       createdCategory = {
         id: 1,
-        name: "SUV",
-        description: "Városi terpjárók"
+        name: "Kombi",
+        description: "5 ajtós kombi jármű"
       }
     });
 
@@ -298,8 +220,8 @@ describe('Car Rental (e2e)', () => {
           .post('/categories')
           .set('Authorization', token)
           .send({
-            name: "SUV",
-            description: "Városi terpjárók"
+            name: "Kombi",
+            description: "5 ajtós kombi jármű"
           })
           .expect(201);
   
@@ -314,6 +236,116 @@ describe('Car Rental (e2e)', () => {
           .set('Authorization', token)
           .expect(200)
           .expect([createdCategory]);
+      });
+    });
+  });
+  
+  describe('Car Controller', () => {
+    let token: string;
+    let createdCar: Record<string, unknown>;
+    let createdCar2: Record<string, unknown>;
+
+    beforeAll(() => {
+      createdCar = {
+        id: 1,
+        name: 'VOLVO V90',
+        registration_plate: "ABC-001",
+        color: "yellow",
+        price: 25000,
+        purchase_date: "2022-01-02T00:00:00.000Z",
+        model: {
+            id: 1,
+            name: 'V90',
+            brand: 1
+        },
+        categories: [{
+          id: 1,
+          name: "Kombi",
+          description: "5 ajtós kombi jármű"
+        }]
+      }
+
+      createdCar2 = {
+        id: 1,
+        name: 'VOLVO V90',
+        registration_plate: "ABC-001",
+        color: "yellow",
+        price: 25000,
+        purchase_date: "2022-01-02T00:00:00.000Z",
+        model: {
+            id: 1,
+            name: 'V90',
+            brand: {
+              id: 1,
+              name: 'VOLVO'
+            }
+        },
+        categories: [{
+          id: 1,
+          name: "Kombi",
+          description: "5 ajtós kombi jármű"
+        }]
+      }
+    });
+
+    beforeEach(async () => {
+      const loginResponse = await requestHandle.post('/users/login').send(user);
+      token = `Bearer ${loginResponse.body.access_token}`;
+    });
+
+    describe('/cars', () => {
+      it('should return empty array', async () => {
+        await requestHandle
+          .get('/cars')
+          .set('Authorization', token)
+          .expect(200)
+          .expect([]);
+      });
+
+      it('should create a car', async () => {
+        const response = await requestHandle
+          .post('/cars')
+          .set('Authorization', token)
+          .send({
+            registration_plate: "ABC-001",
+            color: "yellow",
+            price: 25000,
+            purchase_date: "2022-01-02T00:00:00.000Z",
+            categories: [{id: 1}],
+            model: { id: 1}
+          })
+        .expect(201);
+
+        expect(response.body).toEqual({
+          ...createdCar
+        });
+      });
+
+      it('should return the newly created car in an array for the user', async () => {
+        await requestHandle
+          .get('/cars')
+          .set('Authorization', token)
+          .expect(200)
+          .expect([createdCar2]);
+      });
+    });
+
+    describe('/cars/:id', () => {
+      it('should return the requested car', async () => {
+        await requestHandle
+          .get('/cars/1')
+          .set('Authorization', token)
+          .expect(200)
+          .expect((res) => {
+            expect(res.body).toEqual({ ...createdCar2 });
+          });
+      });
+
+      it('should return 404 when the car does not exist', async () => {
+        await requestHandle
+          .get('/cars/2')
+          .set('Authorization', token)
+          .expect(404);
       });
     });
   });

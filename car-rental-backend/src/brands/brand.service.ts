@@ -18,9 +18,6 @@ export class BrandsService {
     return await this.brandRepository.find(
       {
         name: { $like: `%${ brandDto.name || ''}%` }, // todo
-      },
-      {
-        populate: ['models']
       }
     );
   }
