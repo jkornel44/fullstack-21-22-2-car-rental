@@ -1,16 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Car } from './car';
 
-const baseUrl = 'https://fullstack-beadando.herokuapp.com/cars';
+const baseUrl = 'https://fullstack-beadando.herokuapp.com/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
+  constructor(private httpClient: HttpClient) { }
 
-  cars: Car[] = [
+  getCars(): Promise<any> {
+    return (this.httpClient.get('/api/cars') as Observable<Car[]>).toPromise();
+  }
+
+  /*
+    async getIssues(): Promise<Issue[]> {
+    return (
+      this.httpClient.get('/api/issues') as Observable<Issue[]>
+    ).toPromise();
+  }
+  */
+}
+
+/*
+  private cars: Car[] = [
     {
       id: 1,
       registration_plate: "ABC-001",
@@ -81,19 +96,4 @@ export class CarService {
       ]
     }
   ];
-
-  constructor() { }
-
-  async getCars(): Promise<Car[]> {
-    return this.cars;
-  }
-
-  /*
-    async getIssues(): Promise<Issue[]> {
-    return (
-      this.httpClient.get('/api/issues') as Observable<Issue[]>
-    ).toPromise();
-  }
-  */
-
-}
+*/

@@ -1,11 +1,12 @@
+import { Model } from "./model";
+
 export interface Car {
-  id: number;
+  id?: number;
   registration_plate: string;
   color: string;
   image: string;
-  purchase_date: string;
+  purchase_date?: Date;
   price: number;
-  model: string;
-  brand: string;
+  model?: Model;
   categories: any;
 }

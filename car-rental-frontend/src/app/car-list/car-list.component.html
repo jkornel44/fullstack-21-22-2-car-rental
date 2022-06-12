@@ -13,21 +13,26 @@
         Új jármű felvétele
       </div>
     </div>
-      <div *ngFor="let car of cars; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-40 cursor-pointer relative group">
-        <div class='w-64 group-hover:scale-110 duration-200 ease-in-out'>
-          <img class="object-cover p-2" width="100%" [src]="car.image" alt="city">
-        </div>
-        <div class="p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
-          <div class='flex space-x-1'>
-            <p class="font-extrabold text-3xl text-zinc-800"> {{ car.brand }} </p>
-            <p class="font-light text-lg text-zinc-700"> {{ car.model }}</p>
+      <div [hidden]="cars">
+        Nem található bérelhető jármű
+      </div>
+      <div *ngIf="cars">
+        <div  *ngFor="let car of cars; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-40 cursor-pointer relative group">
+          <div class='w-64 group-hover:scale-110 duration-200 ease-in-out'>
+            <img class="object-cover p-2" width="100%" [src]="car.image" alt="city">
           </div>
-          <div class="flex space-x-2">
-            <span *ngFor="let category of car.categories; let i = index" [style.backgroundColor]="category.color" class="w-max py-0.5 px-1 text-xs text-white rounded-sm">
-              {{ category.name }}
-            </span>
+          <div class="p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
+            <div class='flex space-x-1'>
+              <p class="font-extrabold text-3xl text-zinc-800"> {{ car.model?.brand?.name}} </p>
+              <p class="font-light text-lg text-zinc-700"> {{ car.model?.name }}</p>
+            </div>
+            <div class="flex space-x-2">
+              <span *ngFor="let category of car.categories; let i = index" [style.backgroundColor]="category.color" class="w-max py-0.5 px-1 text-xs text-white rounded-sm">
+                {{ category.name }}
+              </span>
+            </div>
+            <p class=" font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
           </div>
-          <p class=" font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
         </div>
       </div>
   </section>
