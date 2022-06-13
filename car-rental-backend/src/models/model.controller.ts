@@ -1,8 +1,9 @@
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, ParseIntPipe, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ModelsService } from './model.service';
 import { ModelDto } from './dto/model.dto';
 import { AllowAnonymous } from '../auth/allow-anonymous';
+import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 
 @Controller('models')
@@ -31,8 +32,12 @@ export class ModelsController {
 
   @AllowAnonymous()
   @Post()
-  async create(@Body() modelDto: ModelDto): Promise<ModelDto> {
+  @UseInterceptors(FileInterceptor('image', {
+    dest: 'uploads'
+  }))
+  async create(@Body() modelDto: ModelDto, @UploadedFile() image): Promise<ModelDto> {
     try {
+      console.log(image);
       const newModel = await this._modelsService.create(modelDto);
       return new ModelDto(newModel);
     } catch (e) {

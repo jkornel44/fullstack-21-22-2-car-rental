@@ -10,6 +10,7 @@ export class CarDto {
   price?: number;
   purchase_date?: Date;
   model?: Model;
+  image?: string;
   
   categories?: CategoryDto[];
 
@@ -23,6 +24,7 @@ export class CarDto {
     this.price = car.price;
     this.purchase_date = car.purchase_date;
     this.model = car.model;
+    this.image = car.image;
 
     if (car.categories.isInitialized(true)) {
       this.categories = car.categories.getItems().map((category) => new CategoryDto(category));

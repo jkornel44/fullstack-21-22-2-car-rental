@@ -11,8 +11,12 @@ const baseUrl = 'https://fullstack-beadando.herokuapp.com/';
 export class CarService {
   constructor(private httpClient: HttpClient) { }
 
-  getCars(): Promise<any> {
+  async getCars(): Promise<any> {
     return (this.httpClient.get('/api/cars') as Observable<Car[]>).toPromise();
+  }
+
+  async createCar(car: Car): Promise<any> {
+    return (this.httpClient.post('/api/cars', car) as Observable<Car>).toPromise();
   }
 
   /*

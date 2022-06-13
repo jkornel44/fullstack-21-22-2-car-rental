@@ -12,9 +12,10 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './auth/roles.guard';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [MikroOrmModule.forRoot(mikroOrmConfig), CarsModule, CategoriesModule, ModelsModule, BrandsModule, LocationsModule, RentalsModule, UsersModule, AuthModule],
+  imports: [MikroOrmModule.forRoot(mikroOrmConfig), CarsModule, CategoriesModule, ModelsModule, BrandsModule, LocationsModule, RentalsModule, UsersModule, AuthModule, MulterModule],
   providers: [
     {
       provide: APP_GUARD,

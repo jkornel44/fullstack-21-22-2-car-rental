@@ -18,6 +18,9 @@ export class Car {
   color!: string;
 
   @Property()
+  image!: string;
+
+  @Property()
   price!: number;
 
   @Property()

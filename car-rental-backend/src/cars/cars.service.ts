@@ -38,6 +38,7 @@ export class CarsService {
     car.color = carDto.color;
     car.price = carDto.price;
     car.purchase_date = carDto.purchase_date;
+    car.image = carDto.image;
     
     if (carDto.model) {
       car.model = this.modelRepository.getReference(carDto.model.id);

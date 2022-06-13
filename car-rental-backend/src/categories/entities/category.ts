@@ -9,7 +9,7 @@ export class Category {
   @Property({ unique: true })
   name!: string;
 
-  @Property()
+  @Property({ nullable: true })
   description?: string;
 
   @ManyToMany(() => Car)

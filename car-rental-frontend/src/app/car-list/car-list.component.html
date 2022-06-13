@@ -27,7 +27,7 @@
               <p class="font-light text-lg text-zinc-700"> {{ car.model?.name }}</p>
             </div>
             <div class="flex space-x-2">
-              <span *ngFor="let category of car.categories; let i = index" [style.backgroundColor]="category.color" class="w-max py-0.5 px-1 text-xs text-white rounded-sm">
+              <span *ngFor="let category of car.categories; let i = index" class="w-max py-0.5 px-1 text-xs text-white rounded-sm bg-black">
                 {{ category.name }}
               </span>
             </div>
