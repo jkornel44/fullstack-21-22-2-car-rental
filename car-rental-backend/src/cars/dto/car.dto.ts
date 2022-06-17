@@ -1,6 +1,6 @@
 import { CategoryDto } from "../../categories/dto/category.dto";
 import { Model } from "../../models/entities/model";
-import { Car } from "../entities/car";
+import { Car, CarStatus } from "../entities/car";
 
 export class CarDto {
   id?: number;
@@ -10,6 +10,7 @@ export class CarDto {
   price?: number;
   purchase_date?: Date;
   model?: Model;
+  status?: CarStatus;
   image?: string;
   
   categories?: CategoryDto[];
@@ -24,6 +25,7 @@ export class CarDto {
     this.price = car.price;
     this.purchase_date = car.purchase_date;
     this.model = car.model;
+    this.status = car.status;
     this.image = car.image;
 
     if (car.categories.isInitialized(true)) {

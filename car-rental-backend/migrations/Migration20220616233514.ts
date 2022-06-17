@@ -1,6 +1,6 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20220613011909 extends Migration {
+export class Migration20220616233514 extends Migration {
 
   async up(): Promise<void> {
     this.addSql('create table `user` (`id` integer not null primary key autoincrement, `name` varchar not null, `user_name` varchar not null, `password` varchar not null, `role` varchar not null);');
@@ -18,7 +18,7 @@ export class Migration20220613011909 extends Migration {
     this.addSql('create table `category` (`id` integer not null primary key autoincrement, `name` varchar not null, `description` varchar null);');
     this.addSql('create unique index `category_name_unique` on `category` (`name`);');
 
-    this.addSql('create table `car` (`id` integer not null primary key autoincrement, `name` varchar null, `registration_plate` varchar not null, `color` varchar not null, `image` varchar not null, `price` integer not null, `purchase_date` datetime not null);');
+    this.addSql('create table `car` (`id` integer not null primary key autoincrement, `name` varchar null, `registration_plate` varchar not null, `color` varchar not null, `image` varchar not null, `price` integer not null, `status` varchar not null, `purchase_date` datetime not null);');
     this.addSql('create unique index `car_registration_plate_unique` on `car` (`registration_plate`);');
 
     this.addSql('create table `rental` (`id` integer not null primary key autoincrement, `pick_up_date` datetime not null, `return_date` datetime not null, `total_cost` integer null);');

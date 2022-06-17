@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import { Collection, Entity, Enum, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { Model } from '../../models/entities/model';
 import { Category } from '../../categories/entities/category';
 import { Rental } from '../../rentals/entities/rental';
@@ -23,6 +23,9 @@ export class Car {
   @Property()
   price!: number;
 
+  @Enum()
+  status!: CarStatus;
+
   @Property()
   purchase_date!: Date;
 
@@ -35,4 +38,9 @@ export class Car {
   @OneToMany(() => Rental, (rental) => rental.car)
   rentals = new Collection<Car>(this);
 
+}
+
+export enum CarStatus {
+  InUse = 'IN_USE',
+  Ready = 'READY_TO_USE'
 }

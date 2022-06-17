@@ -5,7 +5,7 @@ import { Category } from '../categories/entities/category';
 import { UserDto } from '../users/dto/user.dto';
 import { Model } from '../models/entities/model';
 import { CarDto } from './dto/car.dto';
-import { Car } from './entities/car';
+import { Car, CarStatus } from './entities/car';
 
 @Injectable()
 export class CarsService {
@@ -38,6 +38,7 @@ export class CarsService {
     car.color = carDto.color;
     car.price = carDto.price;
     car.purchase_date = carDto.purchase_date;
+    car.status = CarStatus.Ready;
     car.image = carDto.image;
     
     if (carDto.model) {
@@ -51,7 +52,7 @@ export class CarsService {
         )
       );
     }
-
+    car.name = carDto.name;
     await this.carRepository.persistAndFlush(car);
     await car.categories.init();
     await wrap(car.model).init();

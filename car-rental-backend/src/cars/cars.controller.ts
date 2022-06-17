@@ -51,7 +51,6 @@ export class CarsController {
       if (e instanceof UniqueConstraintViolationException) {
         throw new HttpException('Car alredy exists with the folowing registration plate: ' + carDto.registration_plate, HttpStatus.CONFLICT);
       }
-    }
-    
+    } 
   }
 }
