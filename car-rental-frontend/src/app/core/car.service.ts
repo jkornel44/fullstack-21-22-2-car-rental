@@ -15,6 +15,14 @@ export class CarService {
     return (this.httpClient.get('/api/cars') as Observable<Car[]>).toPromise();
   }
 
+  async searchCars(str: string): Promise<any> {
+    return (this.httpClient.get('/api/cars/search?query=' + str) as Observable<Car[]>).toPromise();
+  }
+
+  async getCar(id: number): Promise<any> {
+    return (this.httpClient.get(`/api/cars/${id}`) as Observable<Car>).toPromise();
+  }
+
   async createCar(car: Car): Promise<any> {
     return (this.httpClient.post('/api/cars', car) as Observable<Car>).toPromise();
   }

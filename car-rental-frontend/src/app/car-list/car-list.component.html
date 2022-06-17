@@ -17,7 +17,7 @@
         Nem található bérelhető jármű
       </div>
       <div *ngIf="cars">
-        <div  *ngFor="let car of cars; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-40 cursor-pointer relative group">
+        <a [routerLink]=" ['/cars', car.id]" *ngFor="let car of cars; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-40 cursor-pointer relative group">
           <div class='w-64 group-hover:scale-110 duration-200 ease-in-out'>
             <img class="object-cover p-2" width="100%" [src]="car.image" alt="city">
           </div>
@@ -33,7 +33,7 @@
             </div>
             <p class=" font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
           </div>
-        </div>
+        </a>
       </div>
   </section>
 </div>

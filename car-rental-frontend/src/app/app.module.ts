@@ -9,6 +9,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CarEditorComponent } from './car-editor/car-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './search/search.component';
+import { CarDetailsComponent } from './car-details/car-details.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
+import { CarSummaryItemComponent } from './car-summary-item/car-summary-item.component';
 
 
 @NgModule({
@@ -16,7 +20,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     CarListComponent,
     HeaderComponent,
-    CarEditorComponent
+    CarEditorComponent,
+    SearchComponent,
+    CarDetailsComponent,
+    DatePickerComponent,
+    CarSummaryItemComponent
   ],
   imports: [
     BrowserModule,

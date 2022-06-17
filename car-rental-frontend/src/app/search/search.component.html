@@ -1,0 +1,29 @@
+<div *ngIf="isModalOpen" (click)="onClick($event)" class="fixed w-screen h-screen bg-black top-0 left-0 opacity-90"></div>
+<div class="w-full relative">
+  <div class="bg-white w-full rounded-md flex items-center" [ngClass]="{'rounded-b-none border-b-2' : isModalOpen}">
+    <fa-icon [icon]="faMagnifyingGlass" class="p-3 mr-1"></fa-icon>
+    <input type="text" name="input" (click)="onClick($event)" class="flex-auto bg-white border-transparent rounded-md focus:border-transparent ring-0 outline-none font-light text-sm p-3" placeholder="Keress elérhető járműveink között!" (keyup)="onChange($event)" />
+  </div>
+  <div *ngIf="isModalOpen" class="absolute bg-white w-full rounded-b-md overflow-hidden">
+    <div *ngIf="!hasResult" class="flex items-center w-full p-2 hover:bg-white h-24 cursor-pointer group">
+      Nincs a keresésnek megfelelő jármű.
+    </div>
+    <div *ngFor="let car of cars; let i = index" [routerLink]=" ['/cars', car.id]" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-24 cursor-pointer group">
+      <div class='w-32 group-hover:scale-110 duration-200 ease-in-out'>
+        <img class="object-cover p-2" width="100%" [src]="car.image" alt="city">
+      </div>
+      <div class="p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
+        <div class='flex space-x-1'>
+          <p class="font-extrabold text-xl text-zinc-800"> {{ car.model?.brand?.name}} </p>
+          <p class="font-light text-md text-zinc-700"> {{ car.model?.name }}</p>
+        </div>
+        <div class="flex space-x-2">
+          <span *ngFor="let category of car.categories; let i = index" class="w-max py-0.5 px-1 text-xs text-white rounded-sm bg-black">
+            {{ category.name }}
+          </span>
+        </div>
+        <p class=" font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
+      </div>
+    </div>
+</div>
+</div>

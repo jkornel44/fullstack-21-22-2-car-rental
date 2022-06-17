@@ -2,14 +2,13 @@
   <div class="fixed w-full -z-20 h-screen" style="background-color: '#081c15';">
     <img class="object-cover" width="100%" src="./assets/imgs/background.jpeg" alt="city">
   </div>
-  <header class="fixed bg-zinc-900 w-full flex space-x-12 p-3 z-50">
+  <header class="fixed bg-zinc-900 w-full flex items-center space-x-12 p-3 z-50">
     <div class="flex items-center no-underline font-bold text-3xl text-white">
       <fa-icon [icon]="faCar" class="p-2"></fa-icon>
       <p class="hidden md:block">CarRental</p>
     </div>
-    <div class="bg-white w-full rounded-md flex items-center">
-      <fa-icon [icon]="faMagnifyingGlass" class="p-2 mr-1"></fa-icon>
-      <input type="text" class="flex-auto bg-white border-transparent rounded-md focus:border-transparent ring-0 outline-none font-light text-sm p-3" placeholder="Keress elérhető járműveink között!" />
+    <div class="w-full">
+      <app-search></app-search>
     </div>
 
     <div class="flex items-center no-underline font-bold text-xl text-white">

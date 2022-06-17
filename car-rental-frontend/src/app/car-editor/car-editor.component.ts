@@ -113,7 +113,8 @@ export class CarEditorComponent implements OnInit {
     }
   }
 
-  onAddNewCategory() {
+  onAddNewCategory(event: any) {
+    event.preventDefault();
     const newCategory = this.carForm.value.category;
     this.categoryService.createCategory({
       name: newCategory
