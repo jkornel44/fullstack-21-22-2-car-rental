@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Car } from '../core/car';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Car, CarStatus } from '../core/car';
 import { CarService } from '../core/car.service';
 import { faFlagCheckered, faMapPin, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '../core/location';
 import { LocationService } from '../core/locarion.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { RentalService } from '../core/rental.service';
+import { UserService } from '../core/user.service';
+import { Rental } from '../core/rental';
 
 @Component({
   selector: 'app-car-details',
@@ -21,6 +24,7 @@ export class CarDetailsComponent implements OnInit {
   faFlagChecked = faFlagCheckered;
   faCalendar = faCalendar
   faMapPin = faMapPin;
+  error?: any;
 
   rentalForm: FormGroup = this.fb.group({
     pick_up_date: ['', Validators.required],
@@ -30,10 +34,12 @@ export class CarDetailsComponent implements OnInit {
   });
 
   constructor(
-    //private rentalService: RentalService,
+    private rentalService: RentalService,
+    private userService: UserService,
     private locationService: LocationService,
     private carService: CarService,
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
   ) { }
 
@@ -64,7 +70,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   onLocationChange(location: any): void {
-    console.log(location.value)
+    console.log(this.locations)
   }
 
   async submit() {
@@ -72,6 +78,31 @@ export class CarDetailsComponent implements OnInit {
     if (!this.rentalForm.valid) {
       return;
     }
+
+    let rentalFromForm = {
+      pick_up_date: this.rentalForm.value.pick_up_date,
+      return_date: this.rentalForm.value.return_date,
+      pick_up_location: this.rentalForm.value.pick_up_location,
+      return_location: this.rentalForm.value.return_location,
+      total_cost: this.total,
+      car: this.car,
+      user: this.userService.user
+    };
+
+    if(this.car?.status === CarStatus.InUse) {
+      this.error = 'Az kiválasztott járműhöz már tartozik aktív bérlés.'
+      return;
+    }
+    await this.rentalService.createRental(rentalFromForm as Rental).then(() => {
+      this.router.navigateByUrl('/cars');
+      if(this.car) {
+        this.carService.lockCar(this.car);
+      }
+    }).catch((resp) => {
+      console.log(resp)
+    });
+
+
   }
 
   setPickupDate(newValue : any) {

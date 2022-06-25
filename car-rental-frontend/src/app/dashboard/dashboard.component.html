@@ -1,0 +1,19 @@
+<div class="flex w-full justify-center pt-14 lg:pt-32">
+  <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
+    <div class="w-full">
+      <h2 class="text-xl font-semibold uppercase w-full bg-zinc-900 text-white p-4">Bérlések</h2>
+      <div *ngFor="let rental of rentals; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-24 cursor-pointer group">
+        <div class='w-32 group-hover:scale-110 duration-200 ease-in-out'>
+          <img class="object-cover p-2" width="100%" [src]="rental.car?.image" alt="rental.car.name">
+        </div>
+        <div class="p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
+          <div class='flex space-x-1'>
+            <p class="font-extrabold text-xl text-zinc-800"> {{ rental.car?.model?.brand?.name}} </p>
+            <p class="font-light text-md text-zinc-700">{{ rental.car?.model?.name }}</p>
+            <p class="font-light text-md text-zinc-700">{{ rental.total_cost }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

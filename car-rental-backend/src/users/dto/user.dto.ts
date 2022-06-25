@@ -1,3 +1,4 @@
+import { RentalDto } from 'src/rentals/dto/rental.dto';
 import { User, UserRole } from '../entities/user';
 
 export class UserDto {

@@ -30,7 +30,7 @@ export class RentalsService {
       filters.user = { id: user.id };
     }
     return await this.rentalRepository.find(filters, {
-      populate: ['pick_up_location','user'],
+      populate: ['pick_up_location','user', 'car.model', 'car.model.brand'],
     });
   }
 
@@ -40,7 +40,7 @@ export class RentalsService {
       filters.user = { id: user.id };
     }
     return await this.rentalRepository.findOne(filters, {
-      populate: ['user', 'pick_up_location'],
+      populate: ['user', 'pick_up_location', 'car.model', 'car.model.brand'],
     });
   }
 

@@ -1,11 +1,10 @@
-import { Category } from "./category";
-import { Location } from "./location";
-import { Model } from "./model";
+import { Rental } from "./rental";
 
 export interface User {
   id?: number;
   name: string;
   role: UserRole;
+  rentals?: Rental[];
 }
 
 export enum UserRole {

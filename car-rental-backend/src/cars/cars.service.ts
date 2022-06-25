@@ -6,6 +6,7 @@ import { UserDto } from '../users/dto/user.dto';
 import { Model } from '../models/entities/model';
 import { CarDto } from './dto/car.dto';
 import { Car, CarStatus } from './entities/car';
+import { UserRole } from '../users/entities/user';
 
 @Injectable()
 export class CarsService {
@@ -18,13 +19,18 @@ export class CarsService {
     private modelRepository: EntityRepository<Model>,
   ) {}
 
-  async findAll(carDto?: CarDto): Promise<Car[]> {
-    return await this.carRepository.find(
-      {
-        model: { $like: `%${ carDto.name || '' }%` }, // todo
-      },
-      { populate: ['categories', 'model', 'model.brand'] },
-    );
+  async findAll(user: UserDto, carDto?: CarDto): Promise<Car[]> {
+    const filters: FilterQuery<Car> = {
+      model: { $like: `%${carDto.name || ''}%` },
+    };
+    
+    if (user && user.role === UserRole.User) {
+      filters.status = 'READY_TO_USE';
+    }
+
+    return await this.carRepository.find(filters, {
+      populate: ['categories', 'model', 'model.brand'],
+    });
   }
 
   async findOne(id: number): Promise<Car> {
@@ -60,4 +66,47 @@ export class CarsService {
     
     return car;
   }
+
+  async update(id: number, carDto: CarDto) {
+    const car = await this.carRepository.findOne({ id });
+    car.name = carDto.name || car.name;
+    car.color = carDto.color || car.color;
+    car.price = carDto.price || car.price;
+    car.image = carDto.image || car.image;
+    car.purchase_date = carDto.purchase_date || car.purchase_date;
+    car.model = carDto.model || car.model;
+
+    if (carDto.categories) {
+      car.categories.set(
+        carDto.categories.map((category) =>
+          this.categoryRepository.getReference(category.id),
+        ),
+      );
+    }
+
+    await this.carRepository.persistAndFlush(car);
+    await this.carRepository.populate(car, ['categories', 'model', 'model.brand']);
+
+    return car;
+  }
+
+  async lockVehicle(id: number) {
+    const car = await this.findOne(id);
+    car.status = CarStatus.InUse;
+
+    await this.carRepository.persistAndFlush(car);
+    await this.carRepository.populate(car, ['categories', 'model', 'model.brand']);
+    
+    return car;
+  } 
+  
+  async releaseVehicle(id: number) {
+    const car = await this.findOne(id);
+    car.status = CarStatus.Ready;
+
+    await this.carRepository.persistAndFlush(car);
+    await this.carRepository.populate(car, ['categories', 'model', 'model.brand']);
+    
+    return car;
+  } 
 }

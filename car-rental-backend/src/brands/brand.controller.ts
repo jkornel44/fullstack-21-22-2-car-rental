@@ -1,8 +1,10 @@
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, ParseIntPipe } from '@nestjs/common';
+import { UserRole } from '../users/entities/user';
 import { AllowAnonymous } from '../auth/allow-anonymous';
 import { BrandsService } from './brand.service';
 import { BrandDto } from './dto/brand.dto';
+import { Roles } from '../auth/roles';
 
 
 @Controller('brands')
@@ -29,7 +31,7 @@ export class BrandsController {
     return new BrandDto(model);
   }
 
-  @AllowAnonymous()
+  @Roles(UserRole.Admin)
   @Post()
   async create(@Body() brandDto: BrandDto): Promise<BrandDto> {
     try {

@@ -1,0 +1,31 @@
+<div class="flex w-full justify-center">
+<div class="flex w-full justify-center pt-14 lg:pt-32">
+  <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
+    <div class="w-full">
+      <div class="w-full bg-zinc-900 p-4 flex items-center space-x-2">
+        <div class="text-white flex-grow text-xl font-semibold uppercase">
+          Márkák
+        </div>
+        <div class="bg-white flex items-center w-max px-2 py-0.5 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onCreateBrand()">
+          <fa-icon [icon]="faCirclePlus" class="p-2"></fa-icon>
+          Új márka
+        </div>
+      </div>
+      <div [hidden]="brands">
+        Nem található autómárka az adatbázisban.
+      </div>
+      <div *ngIf="brands">
+        <a [routerLink]=" ['/brands', brand.id]" *ngFor="let brand of brands; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-20 cursor-pointer relative group">
+          <div class="flex p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
+            <div class="text-xl font-bold">
+              {{ brand.name }}
+            </div>
+            <div class="text-md font-light ml-2">
+              ({{ brand.models?.length }})
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

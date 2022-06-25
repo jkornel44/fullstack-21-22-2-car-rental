@@ -12,4 +12,8 @@ export class BrandService {
   async getBrands(): Promise<any> {
     return (this.httpClient.get('/api/brands') as Observable<Brand[]>).toPromise();
   }
+
+  async createBrand(brand: Brand): Promise<any> {
+    return (this.httpClient.post('/api/brands', brand) as Observable<Brand[]>).toPromise();
+  }
 }

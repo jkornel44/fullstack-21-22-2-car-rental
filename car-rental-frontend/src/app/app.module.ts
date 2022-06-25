@@ -8,11 +8,16 @@ import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CarEditorComponent } from './car-editor/car-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SearchComponent } from './search/search.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
-import { CarSummaryItemComponent } from './car-summary-item/car-summary-item.component';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './core/auth-interceptor.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { BrandEditorComponent } from './brand-editor/brand-editor.component';
+import { BrandListComponent } from './brand-list/brand-list.component';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -24,7 +29,11 @@ import { CarSummaryItemComponent } from './car-summary-item/car-summary-item.com
     SearchComponent,
     CarDetailsComponent,
     DatePickerComponent,
-    CarSummaryItemComponent
+    LoginComponent,
+    DashboardComponent,
+    BrandEditorComponent,
+    BrandListComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +43,13 @@ import { CarSummaryItemComponent } from './car-summary-item/car-summary-item.com
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

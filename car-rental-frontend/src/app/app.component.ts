@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faMagnifyingGlass, faCar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from './core/auth.service';
+import { UserService } from './core/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +13,13 @@ export class AppComponent {
   faMagnifyingGlass = faMagnifyingGlass;
   faCar = faCar;
   faUser = faUser;
+
   title = 'car-rental-frontend';
+
+  constructor(public authService: AuthService, public userService: UserService, private router: Router) {}
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/', 'login']);
+  }
 }

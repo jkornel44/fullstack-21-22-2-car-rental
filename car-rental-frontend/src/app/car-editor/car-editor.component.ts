@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faCirclePlus, faPlus} from '@fortawesome/free-solid-svg-icons';

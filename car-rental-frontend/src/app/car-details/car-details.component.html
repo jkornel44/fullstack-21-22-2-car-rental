@@ -19,6 +19,7 @@
         </div>
       </div>
     </div>
+    <div *ngIf="error" class="px-4 py-1 text-red-800 bg-red-200 mt-5 rounded-md">{{error}}</div>
     <form class="w-full" [formGroup]="rentalForm" (ngSubmit)="submit()">
       <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 bg-indigo-800 p-4 w-full rounded-t-md mt-5 text-white">
         <div class="flex items-center w-full">
@@ -33,13 +34,13 @@
         <div class="flex items-center w-full">
           <fa-icon [icon]="faMapPin" class="mr-4 w-4"></fa-icon>
           <select formControlName="pick_up_location" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded-lg py-3 px-4 leading-tight focus:outline-none bg-white focus:border-gray-500" (change)="onLocationChange(pick_up_location)" name="pick_up_location">
-            <option [ngValue]="pick_up_location" *ngFor="let location of locations">{{ location.name }}</option>
+            <option [ngValue]="location" *ngFor="let location of locations">{{ location.name }}</option>
           </select>
         </div>
         <div class="flex items-center w-full">
           <fa-icon [icon]="faFlagChecked" class="mr-4 w-4"></fa-icon>
           <select formControlName="return_location" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded-lg py-3 px-4 leading-tight focus:outline-none bg-white focus:border-gray-500" (change)="onLocationChange(return_location)" name="return_location">
-            <option [ngValue]="return_location" *ngFor="let location of locations">{{ location.name }}</option>
+            <option [ngValue]="location" *ngFor="let location of locations">{{ location.name }}</option>
           </select>
         </div>
       </div>
