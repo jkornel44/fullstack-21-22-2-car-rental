@@ -1,0 +1,42 @@
+<div class="flex w-full justify-center">
+  <div class="flex w-full justify-center pt-14 lg:pt-32">
+    <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
+      <div class="w-full">
+        <div class="w-full bg-zinc-900 p-4 flex items-center space-x-2">
+          <div class="text-white flex-grow text-xl font-semibold uppercase">
+            {{ brand?.name }}
+          </div>
+          <div *ngIf="userService.isAdmin" class="bg-white flex items-center w-max px-2 py-0.5 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100">
+            <fa-icon [icon]="faCirclePlus" class="p-2"></fa-icon>
+            Új modell
+          </div>
+        </div>
+        <div *ngIf="error" class="p-4 text-red-800 bg-red-200">{{error}}</div>
+
+        <div *ngIf="brand">
+          <a [routerLink]=" ['/brands', brand.id]" *ngFor="let model of brand.models let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-20 cursor-pointer relative group">
+            <div class="flex p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200 flex-grow">
+              <div class="text-xl font-bold">
+                {{ model.name }}
+              </div>
+
+              <div class="text-xl font-bold">
+                <div *ngFor="let car of model.cars let i = index">
+                  {{ car.name }}
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 text-sm font-light ml-2">
+              <div class="flex items-center w-max px-2 py-1 rounded-sm cursor-pointer border outline-1 border-zinc-900 hover:shadow-md">
+                <fa-icon [icon]="faPenToSquare"></fa-icon>
+              </div>
+
+              <div class="flex items-center w-max px-2 py-1 rounded-sm cursor-pointer border outline-1 border-red-600 text-red-600 hover:shadow-md">
+                <fa-icon [icon]="faTrashCan"></fa-icon>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>

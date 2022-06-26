@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faCirclePlus, faPlus} from '@fortawesome/free-solid-svg-icons';
-import { CarService } from '../core/car.service';
-import { Car } from '../core/car';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Brand } from '../core/brand';
 import { BrandService } from '../core/brand.service';
-import { Model } from '../core/model';
-
 
 @Component({
   selector: 'app-brand-editor',

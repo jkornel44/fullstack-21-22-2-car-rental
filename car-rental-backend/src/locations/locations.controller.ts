@@ -1,8 +1,10 @@
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, All } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, All, ParseIntPipe } from '@nestjs/common';
 import { LocationsService } from './locations.service';
 import { LocationDto } from './dto/location.dto';
 import { AllowAnonymous } from '../auth/allow-anonymous';
+import { Roles } from 'src/auth/roles';
+import { UserRole } from 'src/users/entities/user';
 
 
 @Controller('locations')
@@ -18,6 +20,17 @@ export class LocationsController {
   }
 
   @AllowAnonymous()
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<LocationDto> {
+    const location = await this._locationsService.findOne(id);
+
+    if (!location) {
+      throw new HttpException('Location not found', HttpStatus.NOT_FOUND);
+    }
+
+    return new LocationDto(location);
+  }
+
   @Post()
   async create(@Body() locationDto: LocationDto): Promise<LocationDto> {
     try {
@@ -30,5 +43,15 @@ export class LocationsController {
         throw e;
       }
     }
+  }
+
+  @Roles(UserRole.Admin)
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    const locationToRemove = await this._locationsService.findOne(id);
+    if (!locationToRemove) {
+      throw new HttpException(`Unable to remove location with the following name: ${locationToRemove.name}`, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+    return await this._locationsService.remove(+id);
   }
 }

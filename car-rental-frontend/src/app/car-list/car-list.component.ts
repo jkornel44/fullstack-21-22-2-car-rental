@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from '../../app/core/car.service';
 import { Car, CarStatus } from '../core/car';
-import { faCirclePlus, faPen} from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faCarRear, faPen, faLocationPin} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { UserService } from '../core/user.service';
 
@@ -15,6 +15,8 @@ export class CarListComponent implements OnInit {
   currentCar = null;
   currentIndex = -1;
   faCirclePlus = faCirclePlus;
+  faLocationPin = faLocationPin;
+  faCarRear = faCarRear;
   faPen = faPen;
 
   constructor(private carService: CarService, public userService: UserService, private router: Router) {}
@@ -33,5 +35,13 @@ export class CarListComponent implements OnInit {
 
   onCreateCar() {
     this.router.navigateByUrl('/cars/create');
+  }
+
+  onManageBrands() {
+    this.router.navigateByUrl('/brands');
+  }
+
+  onManageLocations() {
+    this.router.navigateByUrl('/locations');
   }
 }

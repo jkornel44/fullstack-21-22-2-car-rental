@@ -1,19 +1,31 @@
-<div class="flex w-full justify-center pt-14 lg:pt-32">
+<div class="flex w-full justify-center pt-14 pb-14 lg:pt-32">
+  <app-location-summary [location]="selectedLocation" *ngIf="isVisible" (closeModal)="onCloseModal()"></app-location-summary>
   <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
     <div class="w-full">
       <h2 class="text-xl font-semibold uppercase w-full bg-zinc-900 text-white p-4">Bérlések</h2>
-      <div *ngFor="let rental of rentals; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-24 cursor-pointer group">
+      <div *ngFor="let rental of rentals; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-min cursor-pointer group">
         <div class='w-32 group-hover:scale-110 duration-200 ease-in-out'>
           <img class="object-cover p-2" width="100%" [src]="rental.car?.image" alt="rental.car.name">
         </div>
         <div class="p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200">
-          <div class='flex space-x-1'>
-            <p class="font-extrabold text-xl text-zinc-800"> {{ rental.car?.model?.brand?.name}} </p>
-            <p class="font-light text-md text-zinc-700">{{ rental.car?.model?.name }}</p>
-            <p class="font-light text-md text-zinc-700">{{ rental.total_cost }}</p>
+          <div>
+            <div class="flex space-x-1">
+              <p class="font-extrabold text-xl text-zinc-800"> {{ rental.car?.model?.brand?.name}} </p>
+              <p class="font-light text-md text-zinc-700">{{ rental.car?.model?.name }}</p>
+            </div>
+            <p class="font-light text-xs text-zinc-700 m-0.5">Összesen: {{ rental.total_cost }} Ft</p>
+            <p class="font-light text-xs text-zinc-700 m-0.5">{{ rental.pick_up_date }} - {{ rental.return_date }}</p>
+            <p class="font-light text-xs text-zinc-700 m-0.5">
+              <span *ngIf="rental.pick_up_location.name; else removed" class="hover:underline text-orange-500" (click)="onSelectLocation(rental.pick_up_location)">{{ rental.pick_up_location?.name }}</span>
+              -
+               <span *ngIf="rental.return_location.name; else removed" class="hover:underline text-orange-500" (click)="onSelectLocation(rental.return_location)">{{ rental.return_location?.name }}</span></p>
+            <p class="font-light text-xs text-zinc-700 m-0.5">Bérlő: {{ rental.user?.name }}</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <ng-template #removed>
+    Removed location
+  </ng-template>
 </div>

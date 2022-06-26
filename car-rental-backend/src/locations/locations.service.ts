@@ -25,29 +25,16 @@ export class LocationsService {
     location.street_type = locationDto.street_type;
     location.house_no = locationDto.house_no;
 
-    /*
-    if (locationDto.rentals_pickup) {
-      location.rentals_pickup.set(
-        locationDto.rentals_pickup?.map((rental) =>
-          this.rentalRepository.getReference(rental.id)
-        )
-      );
-    }
-
-    if (locationDto.rentals_return) {
-      location.rentals_return.set(
-        locationDto.rentals_return?.map((rental) =>
-          this.rentalRepository.getReference(rental.id)
-        )
-      );
-    }
-
-    */
-
-    await this.locationRepository.persistAndFlush(location);
-    //await location.rentals_pickup.init();
-    //await location.rentals_return.init();
-    
+    await this.locationRepository.persistAndFlush(location);    
     return location;
+  }
+
+  async findOne(id: number): Promise<Location> {
+    return await this.locationRepository.findOne({ id });
+  }
+
+  async remove(id: number): Promise<void> {
+    const location = await this.locationRepository.getReference(id);
+    this.locationRepository.removeAndFlush(location);
   }
 }

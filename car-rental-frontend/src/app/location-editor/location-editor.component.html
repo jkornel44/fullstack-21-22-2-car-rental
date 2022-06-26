@@ -1,0 +1,82 @@
+<div class="flex w-full justify-center pt-32">
+  <section class="w-3/4 bg-zinc-100 rounded-md shadow-sm mt-5 overflow-hidden">
+    <div class="flex items-center w-full bg-zinc-300 p-4 text-xl font-bold">
+      <fa-icon [icon]="faCirclePlus" class="p-2"></fa-icon>
+      Új átvételi pont hozzáadása
+    </div>
+    <div *ngIf="error" class="p-4 text-red-800 bg-red-200">{{error}}</div>
+    <form class="w-full p-4" [formGroup]="locationForm" (ngSubmit)="submit()">
+      <div class="w-full">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
+          Név
+        </label>
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-name" type="text" name="name" formControlName="name">
+        <div *ngIf="name.invalid">
+          <span *ngIf="name.hasError('required')" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col lg:flex-row lg:space-x-3">
+        <div class="flex-grow mt-6">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-postal_code">
+            Irányítószám
+          </label>
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-postal_code" type="text" name="name" formControlName="postal_code">
+          <div *ngIf="postal_code.invalid">
+            <span *ngIf="postal_code.hasError('required')" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+            <span *ngIf="postal_code.hasError('min')" class="text-red-500 text-xs italic">Nem valid formátum.</span>
+            <span *ngIf="postal_code.hasError('max')" class="text-red-500 text-xs italic">Nem valid formátum.</span>
+          </div>
+        </div>
+
+        <div class="flex-grow mt-6">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+            Település
+          </label>
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" name="city" formControlName="city">
+          <div *ngIf="city.invalid">
+            <span *ngIf="city.hasError('required')" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col lg:flex-row lg:space-x-3">
+        <div class="flex-grow mt-6">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-street">
+            Közterület
+          </label>
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-street" type="text" name="street" formControlName="street">
+          <div *ngIf="street.invalid">
+            <span *ngIf="street.hasError('required')" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+          </div>
+        </div>
+
+        <div class="flex-grow mt-6">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-street_type">
+            Közterület típusa
+          </label>
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-street_type" type="text" name="street_type" formControlName="street_type">
+          <div *ngIf="street_type.invalid">
+            <span *ngIf="street_type.hasError('required')" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+          </div>
+        </div>
+
+        <div class="flex-grow mt-6">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-house_no">
+            Házszám
+          </label>
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-house_no" type="text" name="house_no" formControlName="house_no">
+          <div *ngIf="house_no.invalid">
+            <span *ngIf="house_no.hasError('required')" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex space-x-2 pt-2">
+        <button class="bg-indigo-700 text-white w-full px-12 py-2 rounded-md" >Mentés</button>
+        <button class="bg-zinc-900 text-white px-12 py-2 rounded-md" (click)="goBack()">Mégse</button>
+      </div>
+
+    </form>
+  </section>
+</div>

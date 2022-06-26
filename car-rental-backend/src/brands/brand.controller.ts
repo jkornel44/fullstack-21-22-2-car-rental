@@ -45,4 +45,15 @@ export class BrandsController {
       }
     }
   }
+
+  @Roles(UserRole.Admin)
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    const brandToRemove = await this._brandsService.findOne(id);
+    if (brandToRemove.models.length > 0) {
+      throw new HttpException(`Unable to remove brand with the following name: ${brandToRemove.name}`, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    return await this._brandsService.remove(+id);
+  }
 }

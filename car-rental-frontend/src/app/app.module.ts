@@ -18,6 +18,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrandEditorComponent } from './brand-editor/brand-editor.component';
 import { BrandListComponent } from './brand-list/brand-list.component';
 import { ErrorComponent } from './error/error.component';
+import { BrandDetailsComponent } from './brand-details/brand-details.component';
+import { LocationListComponent } from './location-list/location-list.component';
+import { LocationEditorComponent } from './location-editor/location-editor.component';
+import { LocationSummaryComponent } from './location-summary/location-summary.component';
 
 
 @NgModule({
@@ -33,7 +37,11 @@ import { ErrorComponent } from './error/error.component';
     DashboardComponent,
     BrandEditorComponent,
     BrandListComponent,
-    ErrorComponent
+    ErrorComponent,
+    BrandDetailsComponent,
+    LocationListComponent,
+    LocationEditorComponent,
+    LocationSummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -46,4 +46,9 @@ export class BrandsService {
 
     return brand;
   }
+
+  async remove(id: number): Promise<void> {
+    const brand = await this.brandRepository.getReference(id);
+    this.brandRepository.removeAndFlush(brand);
+  }
 }

@@ -12,4 +12,12 @@ export class LocationService {
   async getLocations(): Promise<any> {
     return (this.httpClient.get('/api/locations') as Observable<Location[]>).toPromise();
   }
+
+  async createLocation(location: Location): Promise<any> {
+    return (this.httpClient.post('/api/locations', location) as Observable<Location>).toPromise();
+  }
+
+  async deleteLocation(id: number): Promise<any> {
+    return (this.httpClient.delete(`/api/locations/${id}`) as Observable<any>).toPromise();
+  }
 }

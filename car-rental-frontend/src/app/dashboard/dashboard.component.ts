@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '../core/location';
 import { Rental } from '../core/rental';
 import { RentalService } from '../core/rental.service';
 import { UserService } from '../core/user.service';
@@ -10,6 +11,8 @@ import { UserService } from '../core/user.service';
 })
 export class DashboardComponent implements OnInit {
   rentals = [] as Rental[];
+  selectedLocation = {} as Location;
+  isVisible = false;
 
   constructor(
     public rentalService: RentalService,
@@ -19,5 +22,14 @@ export class DashboardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.rentals = await this.rentalService.getRentals();
     console.log(this.rentals)
+  }
+
+  onSelectLocation(location: Location) {
+    this.selectedLocation = location;
+    this.isVisible = true;
+  }
+
+  onCloseModal() {
+    this.isVisible = false;
   }
 }

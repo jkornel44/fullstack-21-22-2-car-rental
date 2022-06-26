@@ -60,6 +60,12 @@ export class RentalsService {
     if (rentalDto.car) {
       rental.car = this.carRepository.getReference(rentalDto.car.id);
     }
+
+    let date_1 = new Date(rentalDto.pick_up_date);
+    let date_2 = new Date(rentalDto.return_date);
+    let difference = date_2.getTime() - date_1.getTime();
+    
+    rental.total_cost = rentalDto.car.price * Math.ceil(difference / (1000 * 3600 * 24));
     
     await this.rentalRepository.persistAndFlush(rental);
     await this.rentalRepository.populate(rental, ['pick_up_location', 'return_location', 'user', 'car']);

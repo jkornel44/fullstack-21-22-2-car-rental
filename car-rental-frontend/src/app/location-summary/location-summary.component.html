@@ -1,0 +1,36 @@
+<div class="absolute top-0 left-0 w-screen h-screen bg-black opacity-90 z-50"></div>
+<div class="fixed top-0 left-0 w-screen h-screen z-50">
+
+  <div class="bg-white rounded-md shadow-md p-4 m-12 lg:m-40 z-50 relative">
+
+    <div class="flex font-bold text-2xl space-x-2">
+      <fa-icon [icon]="faLocationPin"></fa-icon>
+      <h2 class="flex-grow">{{ location.name }}</h2>
+      <fa-icon class="hover:text-red-500 cursor-pointer" [icon]="faXmark" (click)="close()"></fa-icon>
+    </div>
+    <div class="text-sm flex space-x-2 mt-2">
+      <p class="font-semibold">Irányítószám: </p>
+      <p>{{ location.postal_code }}</p>
+    </div>
+
+    <div class="text-sm flex space-x-2 mt-2">
+      <p class="font-semibold">Település: </p>
+      <p>{{ location.city }}</p>
+    </div>
+
+    <div class="text-sm flex space-x-2 mt-2">
+      <p class="font-semibold">Közterület neve: </p>
+      <p>{{ location.street }}</p>
+    </div>
+
+    <div class="text-sm flex space-x-2 mt-2">
+      <p class="font-semibold">Közterület típusa: </p>
+      <p>{{ location.street_type }}</p>
+    </div>
+
+    <div class="text-sm flex space-x-2 mt-2">
+      <p class="font-semibold">Házszám: </p>
+      <p>{{ location.house_no }}</p>
+    </div>
+  </div>
+</div>
