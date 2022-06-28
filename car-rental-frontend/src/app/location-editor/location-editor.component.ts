@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCirclePlus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Brand } from '../core/brand';
@@ -13,7 +13,32 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./location-editor.component.css']
 })
 export class LocationEditorComponent implements OnInit {
-  @Input() location: Location;
+  isCreateMode: boolean;
+  id: string;
+  faCirclePlus = faCirclePlus;
+  faPlus = faPlus;
+  error: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private locationService: LocationService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.error = null;
+    this.isCreateMode = true;
+    this.id = '0';
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.id = this.route.snapshot.params['id'];
+    this.isCreateMode = !this.id;
+
+    if (!this.isCreateMode) {
+      this.locationService.getLocation(this.id)
+        .then((res) => this.locationForm.patchValue(res));
+    }
+  }
 
   locationForm: FormGroup = this.fb.group({
     name:  ['', Validators.required],
@@ -23,19 +48,6 @@ export class LocationEditorComponent implements OnInit {
     street_type: ['', Validators.required],
     house_no: ['', Validators.required],
   });
-
-  faCirclePlus = faCirclePlus;
-  faPlus = faPlus;
-  error: any;
-
-  constructor(
-    private fb: FormBuilder,
-    private locationService: LocationService,
-    private router: Router,
-  ) {
-    this.error = null;
-    this.location = {} as Location;
-  }
 
   get name(): FormControl {
     return this.locationForm.get('name') as FormControl;
@@ -61,14 +73,23 @@ export class LocationEditorComponent implements OnInit {
     return this.locationForm.get('house_no') as FormControl;
   }
 
-  async ngOnInit(): Promise<void> {
-  }
-
   async submit() {
     if (!this.locationForm.valid) {
       return;
     }
 
+    if (this.isCreateMode) {
+      this.createLocation();
+    } else {
+      this.updateLocation();
+    }
+  }
+
+  goBack(): void {
+    this.router.navigateByUrl('/locations');
+  }
+
+  async createLocation() {
     await this.locationService.createLocation(this.locationForm.value as Location).then(() => {
       this.router.navigateByUrl('/locations');
     }).catch((resp) => {
@@ -76,7 +97,11 @@ export class LocationEditorComponent implements OnInit {
     });
   }
 
-  goBack(): void {
-    this.router.navigateByUrl('/locations');
+  async updateLocation() {
+    await this.locationService.updateLocation(this.id, this.locationForm.value as Location).then(() => {
+      this.router.navigateByUrl('/locations');
+    }).catch((resp) => {
+      this.error = resp.error.message;
+    });
   }
 }

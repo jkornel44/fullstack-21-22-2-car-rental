@@ -37,7 +37,7 @@ export class BrandListComponent implements OnInit {
     });
   }
 
-  onEditBrand() {
-    this.router.navigateByUrl('/brands/create');
+  onCreateModel(brandId: number) {
+    this.router.navigateByUrl(`/models/create/${brandId}`);
   }
 }

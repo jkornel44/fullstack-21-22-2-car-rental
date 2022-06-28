@@ -28,8 +28,12 @@ export class CarService {
     return (this.httpClient.post('/api/cars', car) as Observable<Car>).toPromise();
   }
 
-  async updateCar(car: Car): Promise<any> {
-    return (this.httpClient.patch('/api/cars', car) as Observable<Car>).toPromise();
+  async updateCar(id: string, car: Car): Promise<any> {
+    return (this.httpClient.patch(`/api/cars/${id}`, car) as Observable<Car>).toPromise();
+  }
+
+  async deleteCar(id: number): Promise<any> {
+    return (this.httpClient.delete(`/api/cars/${id}`) as Observable<any>).toPromise();
   }
 
   async lockCar(car: Car): Promise<any> {

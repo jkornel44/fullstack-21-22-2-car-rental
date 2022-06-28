@@ -1,22 +1,22 @@
 <div class="flex w-full justify-center">
-  <section class=" w-3/4 pt-32 text-white">
-    <p class="text-4xl font-extrabold uppercase">Kényelmes.</p>
-    <p class="text-2xl font-semibold">Városi cirkálásra alkalmas modellek és prémium autók luxus élménnyel.</p>
-    <p class="text-2xl font-semibold">Legtöbb autónk automata váltóval és sok más extrával.</p>
+  <section class="w-3/4 lg:w-3/4 pt-32 text-white">
+    <p class="text-2xl lg:text-4xl font-extrabold uppercase">Kényelmes.</p>
+    <p class="text-sm lg:text-2xl font-semibold">Városi cirkálásra alkalmas modellek és prémium autók luxus élménnyel.</p>
+    <p class="text-sm lg:text-2xl font-semibold">Legtöbb autónk automata váltóval és sok más extrával.</p>
   </section>
 </div>
 <div class="flex w-full justify-center py-12">
-  <section class="w-3/4 bg-zinc-100 rounded-md shadow-sm mt-5 overflow-hidden">
-    <div class="flex items-center space-x-3 w-full bg-zinc-300 p-4">
-      <div *ngIf="userService.isAdmin" class="bg-white flex items-center w-max px-3 py-1 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onCreateCar()">
+  <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
+    <div class="flex flex-col lg:flex-row items-center space-y-3 lg:space-y-0 lg:space-x-3 w-full bg-zinc-300 p-4">
+      <div *ngIf="userService.isAdmin" class="w-full bg-white flex flex-grow lg:flex-grow-0 items-center lg:w-max px-3 py-1 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onCreateCar()">
         <fa-icon [icon]="faCirclePlus" class="p-2"></fa-icon>
         Új jármű
       </div>
-      <div *ngIf="userService.isAdmin" class="bg-white flex items-center w-max px-3 py-1 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onManageBrands()">
+      <div *ngIf="userService.isAdmin" class="w-full bg-white flex flex-grow lg:flex-grow-0 items-center lg:w-max px-3 py-1 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onManageBrands()">
         <fa-icon [icon]="faCarRear" class="p-2"></fa-icon>
         Összes jármű
       </div>
-      <div class="bg-white flex items-center w-max px-3 py-1 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onManageLocations()">
+      <div class="w-full bg-white flex flex-grow lg:flex-grow-0 items-center lg:w-max px-3 py-1 rounded-md cursor-pointer hover:shadow-sm hover:bg-green-500 hover:text-white transition duration-100" (click)="onManageLocations()">
         <fa-icon [icon]="faLocationPin" class="p-2"></fa-icon>
         Átvételi pontok
       </div>
@@ -25,7 +25,7 @@
         Nem található bérelhető jármű
       </div>
       <div *ngIf="cars">
-        <a [routerLink]=" ['/cars', car.id]" *ngFor="let car of cars; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-40 cursor-pointer relative group">
+        <div [routerLink]=" ['/cars', car.id]" *ngFor="let car of cars; let i = index" class="flex flex-col lg:flex-row items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-max lg:h-40 cursor-pointer relative group">
           <div class='w-64 group-hover:scale-110 duration-200 ease-in-out'>
             <img class="object-cover p-2" width="100%" [src]="car.image" alt="city">
           </div>
@@ -39,10 +39,13 @@
                 {{ category.name }}
               </span>
             </div>
-            <p class=" font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
+            <p class="font-extrabold text-lg text-zinc-900"> {{ car.price }} <span class="text-sm font-normal">Ft / nap</span></p>
           </div>
-          <div *ngIf="car.status === 'IN_USE'" class="absolute right-0 bg-red-600 text-white text-xs m-4 rounded-sm px-1 py-0.5">{{ status(car.status) }}</div>
-        </a>
+          <div *ngIf="car.status === 'IN_USE'" class="bg-red-600 text-white text-xs m-4 rounded-sm px-1 py-0.5 min-w-max">{{ status(car.status) }}</div>
+          <div *ngIf="userService.isAdmin" class="absolute top-4 left-4 bg-zinc-900 text-white rounded-md py-0.5 px-2 hover:bg-zinc-500" (click)="onEdit(car.id)">
+            <fa-icon [icon]="faPen"></fa-icon>
+          </div>
+        </div>
       </div>
   </section>
 </div>

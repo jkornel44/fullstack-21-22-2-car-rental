@@ -3,7 +3,7 @@
   <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
     <div class="w-full">
       <h2 class="text-xl font-semibold uppercase w-full bg-zinc-900 text-white p-4">Bérlések</h2>
-      <div *ngFor="let rental of rentals; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-min cursor-pointer group">
+      <div *ngFor="let rental of rentals; let i = index" class="relative flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-min cursor-pointer group">
         <div class='w-32 group-hover:scale-110 duration-200 ease-in-out'>
           <img class="object-cover p-2" width="100%" [src]="rental.car?.image" alt="rental.car.name">
         </div>
@@ -21,6 +21,9 @@
                <span *ngIf="rental.return_location.name; else removed" class="hover:underline text-orange-500" (click)="onSelectLocation(rental.return_location)">{{ rental.return_location?.name }}</span></p>
             <p class="font-light text-xs text-zinc-700 m-0.5">Bérlő: {{ rental.user?.name }}</p>
           </div>
+        </div>
+        <div *ngIf="!rental.return_date" class="absolute right-4 bg-zinc-800 text-white px-2 py-1 rounded-md hover:bg-zinc-500" (click)="onReleaseCar(rental)">
+          bérlés zárása
         </div>
       </div>
     </div>

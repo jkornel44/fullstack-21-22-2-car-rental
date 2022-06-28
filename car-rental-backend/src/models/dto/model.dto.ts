@@ -6,11 +6,15 @@ export class ModelDto {
   id?: number;
   name?: string;
   brand?: Brand;
-  //cars?: CarDto[];
+  cars?: CarDto[];
 
   constructor(model: Model) {
       this.id = model.id;
       this.name = model.name;
       this.brand = model.brand;
+
+      if (model.cars.isInitialized(true)) {
+        this.cars = model.cars.getItems().map((car) => new CarDto(car));
+      }    
   }
 }

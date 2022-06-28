@@ -43,7 +43,7 @@ export class LocationListComponent implements OnInit {
   }
 
   onEditLocation(location: Location) {
-    this.router.navigateByUrl('/locations/create');
+    this.router.navigateByUrl(`/locations/create/${location.id}`);
   }
 
   onSelectLocation(location: Location) {

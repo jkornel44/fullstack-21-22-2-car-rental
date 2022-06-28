@@ -3,7 +3,7 @@ import { Location } from "./location";
 import { Model } from "./model";
 
 export interface Car {
-  id?: number;
+  id: number;
   name: string;
   registration_plate: string;
   color: string;

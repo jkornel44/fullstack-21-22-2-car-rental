@@ -11,7 +11,7 @@ export class Rental {
   @Property()
   pick_up_date!: Date;
 
-  @Property()
+  @Property({ nullable: true })
   return_date!: Date;
 
   @Property({ nullable: true })

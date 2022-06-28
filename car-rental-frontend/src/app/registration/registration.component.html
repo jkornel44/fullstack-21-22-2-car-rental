@@ -2,10 +2,18 @@
   <section class="w-max bg-zinc-100 rounded-md shadow-sm mt-5 overflow-hidden">
     <div class="flex items-center w-full bg-zinc-300 p-4 text-xl font-bold">
       <fa-icon [icon]="faUser" class="p-2"></fa-icon>
-      Bejelentkezés
+      Regisztráció
     </div>
     <div *ngIf="error" class="p-4 text-red-800 bg-red-200">{{error}}</div>
-    <form class="w-full p-4" [formGroup]="loginForm" (ngSubmit)="submit()">
+    <form class="w-full p-4" [formGroup]="regForm" (ngSubmit)="submit()">
+      <div class="w-full mb-3">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-userName">
+          Név
+        </label>
+        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-name" type="text" name="name" formControlName="name">
+        <span *ngIf="name.invalid" class="text-red-500 text-xs italic"> A mező kitöltése kötelező. </span>
+      </div>
+
       <div class="w-full mb-3">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-userName">
           Felhasználónév
@@ -27,9 +35,9 @@
         <button class="flex items-center bg-indigo-700 text-white w-full px-12 py-2 rounded-md" >
           <fa-icon [icon]="faArrowRightToBracket" class="p-2"></fa-icon>
           Bejelentkezés</button>
-        <button class="bg-zinc-900 text-white px-12 py-2 rounded-md" (click)="toRegistration()">Regisztráció</button>
+        <button class="bg-zinc-900 text-white px-12 py-2 rounded-md" (click)="goBack()">Vissza</button>
       </div>
+
     </form>
   </section>
 </div>
-

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCirclePlus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import { CarService } from '../core/car.service';
 import { Car } from '../core/car';
@@ -9,7 +9,6 @@ import { BrandService } from '../core/brand.service';
 import { Model } from '../core/model';
 import { Category } from '../core/category';
 import { CategoryService } from '../core/category.service';
-
 
 @Component({
   selector: 'app-car-editor',
@@ -26,8 +25,11 @@ export class CarEditorComponent implements OnInit {
     image: ['', Validators.required],
     purchase_date: ['', Validators.required],
     category: '',
+    categories: '',
   });
 
+  isCreateMode = true;
+  id: string;
   faCirclePlus = faCirclePlus;
   faPlus = faPlus;
   car: Car;
@@ -42,9 +44,11 @@ export class CarEditorComponent implements OnInit {
     private carService: CarService,
     private brandService: BrandService,
     private categoryService: CategoryService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
     this.error = null;
+    this.id = '0';
     this.car = {} as Car;
     this.brands = [] as Brand[];
     this.models = [] as Model[];
@@ -87,7 +91,17 @@ export class CarEditorComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.brands = await this.brandService.getBrands();
     this.categories = await this.categoryService.getCategories();
-    console.log(this.categories)
+
+    this.id = this.route.snapshot.params['id'];
+    this.isCreateMode = !this.id;
+
+    if (!this.isCreateMode) {
+      this.carService.getCar(+this.id)
+        .then((res) => {
+          this.carForm.patchValue(res);
+          this.selectedCategories = res.categories;
+        });
+    }
   }
 
   onBrandChange(brand: FormControl): void {
@@ -128,19 +142,27 @@ export class CarEditorComponent implements OnInit {
       return;
     }
 
-    let carFromForm = {
-      registration_plate: this.carForm.value.registration_plate,
-      color: this.carForm.value.color,
-      price: this.carForm.value.price,
-      image: this.carForm.value.image,
-      purchase_date: this.carForm.value.purchase_date,
+    this.carForm.patchValue({
       categories: this.selectedCategories,
-      model: {
-        id: this.carForm.value.model.id
-      }
-    };
+    });
 
-    await this.carService.createCar(carFromForm as Car).then(() => {
+    if (this.isCreateMode) {
+      this.createCar();
+    } else {
+      this.updateCar();
+    }
+  }
+
+  async createCar() {
+    await this.carService.createCar(this.carForm.value as Car).then(() => {
+      this.router.navigateByUrl('/cars');
+    }).catch((resp) => {
+      this.error = resp.error.message;
+    });
+  }
+
+  async updateCar() {
+    await this.carService.updateCar(this.id, this.carForm.value as Car).then(() => {
       this.router.navigateByUrl('/cars');
     }).catch((resp) => {
       this.error = resp.error.message;

@@ -10,7 +10,7 @@ export interface Rental {
 
   pick_up_location: Location;
   return_location: Location;
-  car?: Car;
+  car: Car;
 
   user?: User;
 }

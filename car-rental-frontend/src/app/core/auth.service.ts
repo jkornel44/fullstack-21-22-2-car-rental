@@ -48,6 +48,21 @@ export class AuthService {
     }
   }
 
+  async registration(userAuthRequest: UserAuthRequest) {
+    const result = await (
+      this.httpClient.post(
+        '/api/users/',
+        userAuthRequest
+      ) as Observable<LoginResponse>
+    ).toPromise();
+
+    if(result) {
+      this.authStorageService.saveUser(result);
+      this.setLoginResponse(result);
+      console.log(result);
+    }
+  }
+
   logout() {
     this.setLoginResponse(null);
     this.authStorageService.saveUser(null);

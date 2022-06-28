@@ -1,5 +1,5 @@
 <div class="flex w-full justify-center">
-<div class="flex w-full justify-center pt-14 lg:pt-32">
+<div class="flex w-full justify-center lg:pt-32">
   <section class="w-full lg:w-3/4 bg-zinc-100 lg:rounded-md shadow-sm mt-5 overflow-hidden">
     <div class="w-full">
       <div class="w-full bg-zinc-900 p-4 flex items-center space-x-2">
@@ -16,8 +16,8 @@
         Nem található autómárka az adatbázisban.
       </div>
       <div *ngIf="brands">
-        <a [routerLink]=" ['/brands', brand.id]" *ngFor="let brand of brands; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-20 cursor-pointer relative group">
-          <div class="flex p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200 flex-grow">
+        <div *ngFor="let brand of brands; let i = index" class="flex items-center w-full p-2 hover:bg-white transition duration-200 ease-in-out h-20 cursor-pointer relative group">
+          <div [routerLink]=" ['/brands', brand.id]" class="flex p-3 items-center h-max w-2/3 group-hover:ml-6 duration-200 flex-grow">
             <div class="text-xl font-bold">
               {{ brand.name }}
             </div>
@@ -26,15 +26,15 @@
             </div>
           </div>
           <div class="flex items-center space-x-2 text-sm font-light ml-2">
-            <div class="flex items-center w-max px-2 py-1 rounded-sm cursor-pointer border outline-1 border-zinc-900 hover:shadow-md" (click)="onEditBrand()">
-              <fa-icon [icon]="faPenToSquare"></fa-icon>
+            <div class="flex items-center w-max px-2 py-1 rounded-sm cursor-pointer border outline-1 border-zinc-900 hover:shadow-md" (click)="onCreateModel(brand.id)">
+              Új modell hozzáadása
             </div>
 
             <div class="flex items-center w-max px-2 py-1 rounded-sm cursor-pointer border outline-1 border-red-600 text-red-600 hover:shadow-md" (click)="onDeleteBrand(brand.id)">
               <fa-icon [icon]="faTrashCan"></fa-icon>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>

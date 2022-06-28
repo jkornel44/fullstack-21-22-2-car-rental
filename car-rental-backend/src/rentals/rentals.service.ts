@@ -44,6 +44,27 @@ export class RentalsService {
     });
   }
 
+  async update(id: number, rentalDto: RentalDto) {
+    const rental = await this.rentalRepository.findOne({ id });
+    
+    rental.pick_up_date = rentalDto.pick_up_date || rental.pick_up_date;
+    rental.return_date = rentalDto.return_date || rental.pick_up_date;
+
+    let date_1 = new Date(rentalDto.pick_up_date);
+    let date_2 = new Date(rentalDto.return_date);
+    let difference = date_2.getTime() - date_1.getTime();
+    
+    if (rentalDto.return_date !== null) {
+      rental.total_cost = rentalDto.car.price * Math.ceil(difference / (1000 * 3600 * 24));
+    } else {
+      rental.total_cost = rentalDto.car.price;
+    }
+
+    await this.rentalRepository.persistAndFlush(rental);
+    await this.rentalRepository.populate(rental, ['pick_up_location', 'return_location', 'user', 'car.model', 'car.model.brand']);
+    return rental;
+  }
+
   async create(rentalDto: RentalDto, userDto: UserDto): Promise<Rental> {
     const rental = new Rental();
     rental.pick_up_date = rentalDto.pick_up_date;
@@ -65,7 +86,11 @@ export class RentalsService {
     let date_2 = new Date(rentalDto.return_date);
     let difference = date_2.getTime() - date_1.getTime();
     
-    rental.total_cost = rentalDto.car.price * Math.ceil(difference / (1000 * 3600 * 24));
+    if (rentalDto.return_date !== null) {
+      rental.total_cost = rentalDto.car.price * Math.ceil(difference / (1000 * 3600 * 24));
+    } else {
+      rental.total_cost = rentalDto.car.price;
+    }
     
     await this.rentalRepository.persistAndFlush(rental);
     await this.rentalRepository.populate(rental, ['pick_up_location', 'return_location', 'user', 'car']);

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Car } from '../core/car';
+import { CarService } from '../core/car.service';
 import { Location } from '../core/location';
 import { Rental } from '../core/rental';
 import { RentalService } from '../core/rental.service';
@@ -16,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public rentalService: RentalService,
+    public carService: CarService,
     public userService: UserService
   ) { }
 
@@ -31,5 +34,11 @@ export class DashboardComponent implements OnInit {
 
   onCloseModal() {
     this.isVisible = false;
+  }
+
+  async onReleaseCar(rental: Rental) {
+    this.carService.releaseCar(rental.car);
+    let updatedRental = await this.rentalService.updateRental(rental.id, rental);
+    this.rentals.splice(this.rentals.indexOf(rental), 1, updatedRental);
   }
 }

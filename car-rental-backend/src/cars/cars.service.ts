@@ -37,7 +37,6 @@ export class CarsService {
     return await this.carRepository.findOne({ id }, {populate: ['categories', 'model', 'model.brand']});
   }
 
-
   async create(carDto: CarDto): Promise<Car> {
     const car = new Car();
     car.registration_plate = carDto.registration_plate;
@@ -109,4 +108,9 @@ export class CarsService {
     
     return car;
   } 
+
+  async remove(id: number): Promise<void> {
+    const car = await this.carRepository.getReference(id);
+    this.carRepository.removeAndFlush(car);
+  }
 }

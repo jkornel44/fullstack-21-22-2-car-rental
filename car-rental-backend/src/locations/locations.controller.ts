@@ -45,6 +45,13 @@ export class LocationsController {
     }
   }
 
+  @Patch(':id')
+  @Roles(UserRole.Admin)
+  async update(@Param('id', ParseIntPipe) id: number, @Body() locationDto: LocationDto): Promise<LocationDto> {
+    const locationToUpdate = await this._locationsService.update(id, locationDto);
+    return new LocationDto(locationToUpdate);
+  }
+
   @Roles(UserRole.Admin)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {

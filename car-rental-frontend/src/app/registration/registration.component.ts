@@ -5,18 +5,19 @@ import { faCirclePlus, faPlus, faArrowRightToBracket, faUser } from '@fortawesom
 import { AuthService } from '../core/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   faArrowRightToBracket = faArrowRightToBracket;
   faCirclePlus = faCirclePlus;
   faUser = faUser;
   faPlus = faPlus;
   error: any;
 
-  loginForm: FormGroup = this.fb.group({
+  regForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
     userName: ['', Validators.required],
     password: ['', Validators.required],
   });
@@ -27,28 +28,32 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
+  get name() {
+    return this.regForm.get('name') as FormControl;
+  }
+
   get userName() {
-    return this.loginForm.get('userName') as FormControl;
+    return this.regForm.get('userName') as FormControl;
   }
 
   get password() {
-    return this.loginForm.get('password') as FormControl;
+    return this.regForm.get('password') as FormControl;
   }
 
   ngOnInit(): void {
   }
 
   async submit() {
-    if (!this.loginForm.valid) {
+    if (!this.regForm.valid) {
       return;
     }
 
-    await this.authService.login(this.loginForm.value);
+    await this.authService.registration(this.regForm.value);
     this.router.navigate(['/']);
   }
 
-  toRegistration(): void {
-    this.router.navigateByUrl('/registration');
+  goBack(): void {
+    this.router.navigateByUrl('/cars');
   }
 
 }

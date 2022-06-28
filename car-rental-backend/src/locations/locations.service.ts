@@ -33,6 +33,19 @@ export class LocationsService {
     return await this.locationRepository.findOne({ id });
   }
 
+  async update(id: number, locationDto: LocationDto) {
+    const location = await this.locationRepository.findOne({ id });
+    location.name = locationDto.name || location.name;
+    location.postal_code = locationDto.postal_code || location.postal_code;
+    location.city = locationDto.city || location.city;
+    location.street = locationDto.street || location.street;
+    location.street_type = locationDto.street_type || location.street_type;
+    location.house_no = locationDto.house_no || location.house_no;
+
+    await this.locationRepository.persistAndFlush(location);
+    return location;
+  }
+
   async remove(id: number): Promise<void> {
     const location = await this.locationRepository.getReference(id);
     this.locationRepository.removeAndFlush(location);

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BrandListComponent } from './brand-list.component';
 
-describe('BrandListComponent', () => {
+xdescribe('BrandListComponent', () => {
   let component: BrandListComponent;
   let fixture: ComponentFixture<BrandListComponent>;
 

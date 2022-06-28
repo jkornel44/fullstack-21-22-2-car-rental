@@ -1,7 +1,7 @@
 import { Model } from "./model";
 
 export interface Brand {
-  id?: number;
+  id: number;
   name: string;
   models?: Model[];
 }

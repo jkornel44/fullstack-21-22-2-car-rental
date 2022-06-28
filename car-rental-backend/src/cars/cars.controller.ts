@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
@@ -18,6 +19,7 @@ import { UserParam } from '../auth/user-param.decorator';
 import { UserDto } from '../users/dto/user.dto';
 import { Roles } from '../auth/roles';
 import { UserRole } from '../users/entities/user';
+import { CarStatus } from './entities/car';
 
 @Controller('cars')
 export class CarsController {
@@ -78,5 +80,16 @@ export class CarsController {
         throw new HttpException('Car alredy exists with the folowing registration plate: ' + carDto.registration_plate, HttpStatus.CONFLICT);
       }
     } 
+  }
+
+  @Roles(UserRole.Admin)
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    const carToRemove = await this._carsService.findOne(id);
+    if (carToRemove.status === CarStatus.InUse) {
+      throw new HttpException(`Unable to remove car with the following id: ${carToRemove.id} due to an active rent`, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    return await this._carsService.remove(+id);
   }
 }

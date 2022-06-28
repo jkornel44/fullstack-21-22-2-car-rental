@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SearchComponent } from './search/search.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
-import { DatePickerComponent } from './date-picker/date-picker.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './core/auth-interceptor.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -22,6 +21,8 @@ import { BrandDetailsComponent } from './brand-details/brand-details.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { LocationEditorComponent } from './location-editor/location-editor.component';
 import { LocationSummaryComponent } from './location-summary/location-summary.component';
+import { ModelEditorComponent } from './model-editor/model-editor.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -32,7 +33,6 @@ import { LocationSummaryComponent } from './location-summary/location-summary.co
     CarEditorComponent,
     SearchComponent,
     CarDetailsComponent,
-    DatePickerComponent,
     LoginComponent,
     DashboardComponent,
     BrandEditorComponent,
@@ -41,7 +41,9 @@ import { LocationSummaryComponent } from './location-summary/location-summary.co
     BrandDetailsComponent,
     LocationListComponent,
     LocationEditorComponent,
-    LocationSummaryComponent
+    LocationSummaryComponent,
+    ModelEditorComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,

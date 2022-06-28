@@ -44,4 +44,8 @@ export class CarListComponent implements OnInit {
   onManageLocations() {
     this.router.navigateByUrl('/locations');
   }
+
+  onEdit(id: number) {
+    this.router.navigateByUrl(`/cars/edit/${id}`);
+  }
 }
