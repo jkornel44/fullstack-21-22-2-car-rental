@@ -1,13 +1,14 @@
 {
-  "name": "car-rental-frontend",
+  "name": "issue-tracker-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "node ./dist/server/server.js",
+    "start:dev": "ng serve",
     "build": "ng build && tsc -p tsconfig.server.json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng run car-rental-frontend:test-ci"
+    "test:ci": "ng run issue-tracker-client:test-ci"
   },
   "private": true,
   "dependencies": {
