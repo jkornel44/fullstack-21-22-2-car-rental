@@ -3,8 +3,9 @@ import { RentalDto } from './dto/rental.dto';
 import { RentalsService } from './rentals.service';
 import { UserDto } from '../users/dto/user.dto';
 import { UserParam } from '../auth/user-param.decorator';
-import { Roles } from 'src/auth/roles';
-import { UserRole } from 'src/users/entities/user';
+import { Roles } from '../auth/roles';
+import { UserRole } from '../users/entities/user';
+import { AllowAnonymous } from 'src/auth/allow-anonymous';
 
 @Controller('rentals')
 export class RentalsController {

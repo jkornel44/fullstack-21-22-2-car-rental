@@ -3,8 +3,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException
 import { LocationsService } from './locations.service';
 import { LocationDto } from './dto/location.dto';
 import { AllowAnonymous } from '../auth/allow-anonymous';
-import { Roles } from 'src/auth/roles';
-import { UserRole } from 'src/users/entities/user';
+import { Roles } from '../auth/roles';
+import { UserRole } from '../users/entities/user';
 
 
 @Controller('locations')
