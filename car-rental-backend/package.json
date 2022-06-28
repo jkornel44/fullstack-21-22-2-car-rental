@@ -2,7 +2,8 @@
   "name": "car-rental",
   "version": "0.0.1",
   "engines": {
-    "node": "17.x"
+    "node": "17.x",
+    "npm": "8.1.0"
   },
   "description": "",
   "author": "",
