@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    await this.authService.login(this.loginForm.value);
+    await this.authService.login(this.loginForm.value).catch((resp) => this.error = resp.error.message);
     this.router.navigate(['/']);
   }
 
