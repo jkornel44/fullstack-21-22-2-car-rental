@@ -31,3 +31,9 @@ Autóbérlést lehetővé tevő alkalmazás.
 -   Vendég: a főoldal tartalmához fér hozzá.
 -   Bérlő: a vendég szerepkörén túl látja az elérhető járműveket, valamint bérlést tud indítani/zárni.
 -   Adminisztrátor: a bérlő szerepkörén túl az összes bérlést látja, módosíthatja.
+
+## Adatbázis séma:
+![alt text](https://github.com/jkornel44/fullstack-21-22-2-car-rental/blob/master/ER.png?raw=true)
+
+## UML Use Case Diagram:
+![alt text](https://github.com/jkornel44/fullstack-21-22-2-car-rental/blob/master/usecases.png?raw=true)
