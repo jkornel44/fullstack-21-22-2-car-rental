@@ -28,5 +28,9 @@ module.exports = function (config) {
     },
     singleRun: true,
     browserNoActivityTimeout: 40000,
+    parallelOptions: {
+      executors: 4,
+      sharedStrategy: 'round-robin'
+    }
   });
 };
