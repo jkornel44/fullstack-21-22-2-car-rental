@@ -1,73 +1,458 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+# Car Rental REST-API
+## Entitások:
+#### User:
+```json
+{
+	"name": "Teszt Elek",
+	"userName": "telek05",
+	"password": "password"
+}
+```
+#### Brand:
+```json
+{
+	"name": "VOLVO"
+}
+```
+#### Model:
+```json
+{
+	"name": "V90 Cross Country",
+	"brand": {} as Brand
+}
+```
+#### Car:
+```json
+{
+	"registration_plate": "ABC-001",
+	"color": "white",
+	"price": 25000,
+	"image": "https://www.car.com/volvo/v90.png",
+	"purchase_date": "2022-01-02T00:00:00.000Z",
+	"model": {} as Model
+}
+```
+#### Category:
+```json
+{
+	"name": "Elektromos",
+	"description": "Elektromos hajtással rendelkező jármű"
+}
+```
+#### Location:
+```json
+{
+	"name": "2072 Zsámbék Központ",
+	"postal_code": "2072",
+	"city": "Zsámbék",
+	"street": "Szent István",
+	"street_type": "tér",
+	"house_no": 12
+}
+```
+#### Rental:
+```json
+{
+	"pick_up_date": "2022-06-01",
+	"return_date": "2022-06-05",
+	"total_cost": 30000,
+	"pick_up_location": {} as Location,
+	"return_location": {} as Location,
+	"car": {} as Car,
+	"user": {} as User
+}
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+## Végpontok:
+### /users/
 ```
+POST/users:
+	requestBody: 
+		name: string
+		userName: string : required
+		password: string : required
+	responses:
+		"201": 
+			description: User created successfully
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/User"
+		"409":
+			description: userName already have been taken
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+POST/users/login:
+	requestBody: 
+		userName: string : required
+		password: string : required
+	responses:
+		"200": 
+			description: successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/User"
+					access_token: string
+		"400":
+			description: Invalid username/password supplied		
+ ```
+### /brands/
 ```
+GET/brands/:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Brand
+		"401":
+			description: Unauthorized
+			
+POST/brands:
+	requestBody: 
+		name: string : required
+	responses:
+		"201": 
+			description: Brand created successfully
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Brand"
+		"409": 
+			description: Brand already exists 
 
-## Support
+DELETE/brands/{id}:
+	responses:
+		"200": 
+			description: Brand deleted successfully
+		"401":
+			description: Unauthorized
+		"404":
+			description: Brand not found	
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+GET/brands/{id}:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Brand
+		"401":
+			description: Unauthorized
+		"404":
+			description: Brand not found	
+ ```
+### /models/
+```
+GET/models/:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Model
+			
+POST/models:
+	requestBody: 
+		name: string : required
+		brand: Brand
+	responses:
+		"201": 
+			description: Model created successfully
+			content:
+				application/json:
+				schema:
+					Model
+		"409":
+			description: Model already exists
 
-## Stay in touch
+GET/models/{id}:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Model
+		"404":
+			description: Model not found	
+ ```
+### /Category/
+```
+GET/categories/:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Category
+			
+POST/categories:
+	requestBody: 
+		name: string : required
+		description: string: optional
+	responses:
+		"201": 
+			description: Category created successfully
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Category"
+		"409": 
+			description: Category already exists
+ ```
+### /cars/
+```
+GET/cars/:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Car
+		"401":
+			description: Unauthorized
+			
+POST/cars:
+	requestBody: 
+		registration_plate: string : required
+		color: string: required
+		price: number: required
+		purchase_date: string(date) : optional
+		model: Model : required
+		categories: Category[] : optional
+		image: string: required
+		status: enum { IN_USE, READY_TO_USE } : required
+	responses:
+		"201": 
+			description: Car created successfully
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Car
+		"401": 
+			description: Unauthorized
+		"409": 
+			description: Car already exists 
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+DELETE/cars/{id}:
+	responses:
+		"200": 
+			description: Car deleted successfully
+		"403":
+			description: Unauthorized
+		"405":
+			description: Not allowed
+		"404":
+			description: Car not found	
 
-## License
+GET/cars/{id}:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Car
+		"401":
+			description: Unauthorized
+		"404":
+			description: Car not found	
+			
+PUT/cars/{id}:
+	requestBody: 
+		registration_plate: string : optional
+		color: string: optional
+		price: number: optional
+		purchase_date: string(date) : optional
+		model: Model : optional
+		categories: Category[] : optional
+		image: string: optional
+		status: enum { IN_USE, READY_TO_USE } : optional
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Car
+		"401":
+			description: Unauthorized
+		"404":
+			description: Car not found	
 
-Nest is [MIT licensed](LICENSE).
+PUT/cars/{id}/lock:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Car
+		"401":
+			description: Unauthorized
+		"404":
+			description: Car not found	
+
+PUT/cars/{id}/release:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Car
+		"401":
+			description: Unauthorized
+		"404":
+			description: Car not found	
+ ```
+### /locations/
+```
+GET/locations/:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Location
+			
+POST/locations:
+	requestBody: 
+		name: string : required
+		postal_code: number : required
+		city: string : required
+		street_name: string : required
+		street_type: string : required
+		house_no: number : required
+	responses:
+		"201": 
+			description: Location created successfully
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Location
+		"401": 
+			description: Unauthorized
+		"409": 
+			description: Location already exists 
+
+DELETE/locations/{id}:
+	responses:
+		"200": 
+			description: Location deleted successfully
+		"403":
+			description: Unauthorized
+		"404":
+			description: Location not found	
+
+GET/locations/{id}:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Location
+		"404":
+			description: Location not found	
+			
+PUT/locations/{id}:
+	requestBody: 
+		name: string : optional
+		postal_code: number : optional
+		city: string : optional
+		street_name: string : optional
+		street_type: string : optional
+		house_no: number : optional
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Location
+		"401":
+			description: Unauthorized
+		"404":
+			description: Location not found	
+ ```
+### /rentals/
+```
+GET/rentals/:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Rental
+			
+POST/rentals:
+	requestBody: 
+		pick_up_location: Location : required
+		return_location: Location : required
+		pick_up_date: string(date): required
+		return_date: string(date): optional
+		total_cost: number : optional
+		user: User : required
+		car: Car : required
+	responses:
+		"201": 
+			description: Rental created successfully
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Rental
+		"401": 
+			description: Unauthorized
+		"409": 
+			description: Rental already exists 
+
+DELETE/rentals/{id}:
+	responses:
+		"200": 
+			description: Rental deleted successfully
+		"401":
+			description: Unauthorized
+		"404":
+			description: Rental not found	
+
+GET/rentals/{id}:
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Rental
+		"404":
+			description: Location not found	
+			
+PUT/rentals/{id}:
+	requestBody: 
+		pick_up_location: Location : optional
+		return_location: Location : optional
+		pick_up_date: string(date): optional
+		return_date: string(date): required
+		total_cost: number : optional
+		user: User : required
+		car: Car : required
+	responses:
+		"200": 
+			description: Successful operation
+			content:
+				application/json:
+				schema:
+					$ref: "#/components/schemas/Rental
+		"401":
+			description: Unauthorized
+		"404":
+			description: Rental not found	
+ ```
