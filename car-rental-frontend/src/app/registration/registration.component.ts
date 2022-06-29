@@ -48,8 +48,9 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    await this.authService.registration(this.regForm.value).catch((resp) => this.error = resp.error.message);
-    this.router.navigate(['/']);
+    await this.authService.registration(this.regForm.value)
+      .then(() => this.router.navigate(['/']))
+      .catch((resp) => this.error = resp.error.message);
   }
 
   goBack(): void {

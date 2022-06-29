@@ -24,7 +24,7 @@ export class UsersController {
 
   @AllowAnonymous()
   @Post()
-  async create(@Body() userAuthDto: UserAuthDto): Promise<UserDto> {
+  async create(@Body() userAuthDto: UserAuthDto) {
     try {
       const user = await this.userService.create(userAuthDto);
       return new UserDto(user);
