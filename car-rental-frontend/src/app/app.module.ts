@@ -23,6 +23,7 @@ import { LocationEditorComponent } from './location-editor/location-editor.compo
 import { LocationSummaryComponent } from './location-summary/location-summary.component';
 import { ModelEditorComponent } from './model-editor/model-editor.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { RegistrationComponent } from './registration/registration.component';
     LocationSummaryComponent,
     ModelEditorComponent,
     RegistrationComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,

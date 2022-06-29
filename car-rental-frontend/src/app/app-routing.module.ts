@@ -17,23 +17,26 @@ import { LoginComponent } from './login/login.component';
 
 import { AuthGuard } from './core/auth-guard';
 import { RoleGuard } from './core/role-guard';
+
 import { LocationEditorComponent } from './location-editor/location-editor.component';
 import { ModelEditorComponent } from './model-editor/model-editor.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'cars', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: LandingPageComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'cars', component: CarListComponent, canActivate: [AuthGuard] },
   { path: 'cars/create', component: CarEditorComponent, canActivate: [RoleGuard] },
   { path: 'cars/edit/:id', component: CarEditorComponent, canActivate: [RoleGuard] },
   { path: 'cars/:carId', component: CarDetailsComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'brands', component: BrandListComponent, canActivate: [RoleGuard] },
+  { path: 'brands', component: BrandListComponent, canActivate: [AuthGuard] },
   { path: 'brands/create', component: BrandEditorComponent, canActivate: [RoleGuard] },
-  { path: 'brands/:brandId', component: BrandDetailsComponent, canActivate: [RoleGuard] },
+  { path: 'brands/:brandId', component: BrandDetailsComponent, canActivate: [AuthGuard] },
   { path: 'locations', component: LocationListComponent },
   { path: 'locations/edit/:id', component: LocationEditorComponent, canActivate: [RoleGuard] },
   { path: 'locations/create', component: LocationEditorComponent, canActivate: [RoleGuard] },

@@ -3,6 +3,7 @@ import { faCirclePlus, faPenToSquare, faTrashCan } from '@fortawesome/free-solid
 import { Router } from '@angular/router';
 import { BrandService } from '../core/brand.service';
 import { Brand } from '../core/brand';
+import { UserService } from '../core/user.service';
 
 @Component({
   selector: 'app-car-list',
@@ -18,7 +19,7 @@ export class BrandListComponent implements OnInit {
   faTrashCan = faTrashCan;
   error: any;
 
-  constructor(private brandService: BrandService, private router: Router) {}
+  constructor(private brandService: BrandService, public userService: UserService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     this.brands = await this.brandService.getBrands();

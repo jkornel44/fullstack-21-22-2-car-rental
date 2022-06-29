@@ -1,29 +1,43 @@
 <div class=" w-full min-h-screen bg-zinc-800">
-  <header class="lg:fixed bg-zinc-900 w-full flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-12 p-3 z-50">
-    <div class="flex items-center no-underline font-bold text-3xl text-white cursor-pointer" [routerLink]="['/', 'cars']">
-      <fa-icon [icon]="faCar" class="p-2"></fa-icon>
-      <p>CarRental</p>
-    </div>
-    <div class="w-full">
-      <app-search></app-search>
-    </div>
+  <header class="w-full block lg:fixed">
+    <div class="bg-zinc-900 w-full flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-12 p-3 z-50">
+      <div class="flex items-center no-underline font-bold text-3xl text-white cursor-pointer" [routerLink]="['/']">
+        <fa-icon [icon]="faCar" class="p-2"></fa-icon>
+        <p>CarRental</p>
+      </div>
+      <div class="w-full">
+        <app-search></app-search>
+      </div>
 
-    <div *ngIf="authService.isLoggedIn" class="flex items-center no-underline font-bold text-xl text-white" [routerLink]="['/', 'dashboard']">
-      <div class="flex items-center space-x-4 bg-neutral-900 rounded-md py-2 px-4 hover:bg-neutral-700">
-        <fa-icon [icon]="faUser"></fa-icon>
-        <div class="w-max">
-          <div class="text-sm">{{ userService.user?.name }}</div>
-          <div class="text-xs font-light hover:underline cursor-pointer" (click)="logout()">Kijelentkezés</div>
+      <div *ngIf="authService.isLoggedIn" class="flex items-center no-underline font-bold text-xl text-white" [routerLink]="['/', 'dashboard']">
+        <div class="flex items-center space-x-4 bg-neutral-900 rounded-md py-2 px-4 hover:bg-neutral-700">
+          <fa-icon [icon]="faUser"></fa-icon>
+          <div class="w-max">
+            <div class="text-sm">{{ userService.user?.name }}</div>
+            <div class="text-xs font-light hover:underline cursor-pointer" (click)="logout()">Kijelentkezés</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="flex items-center no-underline font-bold text-xl text-white">
-      <button *ngIf="!authService.isLoggedIn" [routerLink]="['/', 'login']" class="bg-neutral-900 p-3 rounded-md hover:bg-neutral-700">
-        Bejelentkezés
-      </button>
+      <div class="flex items-center no-underline font-bold text-xl text-white">
+        <button *ngIf="!authService.isLoggedIn" [routerLink]="['/', 'login']" class="bg-neutral-900 p-3 rounded-md hover:bg-neutral-700">
+          Bejelentkezés
+        </button>
+      </div>
+    </div>
+    <div class="bg-zinc-700 text-white w-full flex flex-col lg:flex-row items-center">
+      <div [routerLink]="['/cars']" class="h-full p-4 hover:bg-zinc-900 cursor-pointer">
+        Járművek
+      </div>
+      <div [routerLink]="['/locations']" class="h-full p-4 hover:bg-zinc-900 cursor-pointer">
+        Átváteli pontok
+      </div>
+      <div [routerLink]="['/brands']" class="h-full px-6 py-4 hover:bg-zinc-900 cursor-pointer">
+        Autómárkák
+      </div>
     </div>
   </header>
+
   <main>
     <router-outlet></router-outlet>
   </main>
